@@ -1,0 +1,23 @@
+#root {
+  max-width: 1280px;
+  margin: 10 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.card {
+  padding: 2em;
+}
+
+input {
+  margin-left: 0.5em;
+}
+
+button {
+  padding: 5;
+  background-color:goldenrod;
+  font-size: 0.8em;
+  padding: 0.5em 1em;
+  margin-left: 0.5em;
+  margin-top: 1em;
+}

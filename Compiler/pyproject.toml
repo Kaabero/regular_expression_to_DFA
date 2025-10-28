@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "compiler"
+version = "0.1.0"
+description = ""
+authors = ["Katri Laamala"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.120.1"
+uvicorn = "^0.38.0"
+pylint = "^4.0.2"
+
+
+[tool.poetry.group.dev.dependencies]
+uvicorn = "^0.38.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
