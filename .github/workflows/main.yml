@@ -37,6 +37,6 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./Compiler
-        run: poetry install
+        run: poetry install --no-root
 
       
