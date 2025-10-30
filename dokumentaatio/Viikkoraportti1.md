@@ -4,7 +4,7 @@ Aloitin viikon tutustumalla kurssin materiaaleihin ja projektin mahdollisiin aih
 
 Lisäksi tällä viikolla aloin miettimään, miten algoritmia kannattaisi lähteä toteuttamaan ja millaisia algoritmin toimintaperiaate ja kokonaisuus suurin piirtein voisivat olla. Loin alkuun käyttöliittymästä version, jossa käyttäjä voi syöttää säännöllisen lausekkeen. Muuta toiminnallisuutta en käyttöliittymään ajatellut toteuttaa tässä vaiheessa. Algoritmista ajatuksena on koodata ensimmäisenä syntaksipuun luominen. Mietin myös sellaisen version luomista alkuun, jossa DFA luodaan käyttämällä valmiita kirjastoja, jolloin ohjelmasta saataisiin toimiva versio ennen itse algoritmin työstämistä.
 
-Opin tällä viikolla perusperiaatteen siitä, miten säännöllisestä lausekkeesta saadaan muodostettua DFA ilman, että välissä muodostetaan NFA. Hieman epäselväksi jäi, miten syntaksipuusta määritetään solmulle followpos.
+Opin tällä viikolla perusperiaatteen siitä, miten säännöllisestä lausekkeesta saadaan muodostettua DFA ilman, että välissä muodostetaan NFA. Vaikeaa on hahmottaa, miten lauseesta, jossa on useammat sisäkkäiset sulkeet, kannattaa lähteä rakentamaan syntaksipuuta. Hieman epäselväksi myös jäi, miten syntaksipuusta määritetään solmulle followpos.
 
 
 ## Kysymys ohjaajalle:
@@ -18,7 +18,8 @@ Valitsin kurssisivuilla ehdotetun aiheen, mutta rajasin sen käsittelemään vai
 | ----- | ------------- | ------ |
 |27.10.  | 6 h            | Kurssimateriaaliin tutustuminen, aiheen valinta, määrittelydokumentti |
 |28.10.  | 6 h            | Projektin alustus, algoritmin toimintaperiaatteen tutkimista, algoritmin toteutuksen suunnittelua |
-| Yhteensä | 12 h         |        |
+| 29.10 | 2 h |  Syntaksipuun rakentamisen suunnittelua |
+| Yhteensä | 14 h         |        |
 
 
 
