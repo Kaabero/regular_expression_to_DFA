@@ -7,10 +7,6 @@ Lisäksi tällä viikolla aloin miettimään, miten algoritmia kannattaisi läht
 Opin tällä viikolla perusperiaatteen siitä, miten säännöllisestä lausekkeesta saadaan muodostettua DFA ilman, että välissä muodostetaan NFA. Vaikeaa on hahmottaa, miten lauseesta, jossa on useammat sisäkkäiset sulkeet, kannattaa lähteä rakentamaan syntaksipuuta. Hieman epäselväksi myös jäi, miten syntaksipuusta määritetään solmulle followpos.
 
 
-## Kysymys ohjaajalle:
-
-Valitsin kurssisivuilla ehdotetun aiheen, mutta rajasin sen käsittelemään vain kieliä, joiden aakkosto on ∑ = {a, b}. Onko tämä ok? 
-
 
 ## Tuntikirjanpito
 
