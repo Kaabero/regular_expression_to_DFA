@@ -3,7 +3,7 @@
 Projekti koskee Helsingin yliopiston Tietojenkäsittelytieteen kandiohjelman (TKT) aineopintojen harjoitustyötä (Algoritmit ja tekoäly).   
 
 ## Aihe
-Toteutetaan kääntäjä säännöllisestä lausekkeesta deterministiseksi äärelliseksi automaatiksi (DFA). Ohjelma ottaa syötteenä säännöllisen lausekkeen (aakkosto ∑ = {a,b} sekä operaatiot tähti, konkatenaatio ja yhdiste). Virhetilanteita ovat tyhjä syöte, vääriä merkkejä sisältävät syötteet sekä epälooginen sulkeiden käyttö. Ohjelma tuottaa annetun säännöllisen lausekkeen perusteella DFA:n, joka hyväksyy samat merkkijonot kuin lauseke. Ohjelma tuottaa tulosteena muodostetun DFA:n, jossa tilat on merkitty ympyröinä ja siirtymät niiden välisillä nuolilla. 
+Toteutetaan kääntäjä säännöllisestä lausekkeesta deterministiseksi äärelliseksi automaatiksi (DFA). Ohjelma ottaa syötteenä säännöllisen lausekkeen (operaatioina tähti, konkatenaatio ja yhdiste). Virhetilanteita ovat tyhjä syöte sekä epälooginen sulkeiden ja operaattoreiden käyttö. Ohjelma tuottaa annetun säännöllisen lausekkeen perusteella DFA:n, joka hyväksyy samat merkkijonot kuin lauseke. Ohjelma tuottaa tulosteena muodostetun DFA:n, jossa tilat on merkitty ympyröinä ja siirtymät niiden välisillä nuolilla. 
 
 ## Toteutus (ydin)
 
