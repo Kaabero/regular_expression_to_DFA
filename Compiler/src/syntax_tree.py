@@ -15,9 +15,28 @@ class SyntaxTree:
     def __init__(self):
         '''
         Luokan konstruktori, joka luo uuden puun
+
+
         '''
         self.root = None
         self.focus_node = None
+     
+
+    def build_tree(self, postfix):
+        '''
+        Metodi rakentaa puun postfix-muodossa olevasta säännöllisestä lausekkeesta
+
+        Args:
+            postfix (list): säännöllinen lauseke postfix-muodossa 
+        '''
+        expression = postfix[::-1]
+        self.root = Node(1, expression[0])
+        self.root.max_children = get_child_number(self.root.character)
+
+        self.focus_node = self.root
+        for i in range(1, len(expression)):
+            self.add(i+1, expression[i])
+
 
   
     def add(self, number: int, character: str):
@@ -85,18 +104,12 @@ class SyntaxTree:
 
 
 
-if __name__ == "__main__":
-    postfix = get_postfix('(a|b)*.a.b.b.#')
-    expression = postfix[::-1]
-    s = SyntaxTree()
-    s.root = Node(1, expression[0])
-    s.root.max_children = get_child_number(s.root.character)
-
-    s.focus_node = s.root
-    for i in range(1, len(expression)):
-        s.add(i+1, expression[i])
-
-    print(s.get_tree())
+'''
+postfix = get_postfix('a.(b)*.#')
+s = SyntaxTree()
+s.build_tree(postfix)
+print(s.get_tree())
+'''
 
 
 
