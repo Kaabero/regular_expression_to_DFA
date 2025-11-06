@@ -102,13 +102,13 @@ class SyntaxTree:
         nodes[node.number] = {'character': node.character, 'left': node.left, 'right': node.right, 'parent': node.parent, 'max_children': node.max_children}
         self.traverse(node.right, nodes)
 
-
-
 '''
-postfix = get_postfix('a.(b)*.#')
-s = SyntaxTree()
-s.build_tree(postfix)
-print(s.get_tree())
+if __name__ == "__main__":
+
+    postfix = get_postfix('(a|b)*.a.b.b.#')
+    s = SyntaxTree()
+    s.build_tree(postfix)
+    print(s.get_tree())
 '''
 
 
