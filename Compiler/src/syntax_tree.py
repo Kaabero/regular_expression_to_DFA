@@ -1,61 +1,106 @@
-from stack import Stack
-
-def get_postfix(expression: str):
-
-    """
-    Funktio, joka tuottaa infix-muotoa olevasta säännöllisestä lausekkeesta postfix-muotoa olevan.
-
-    Args:
-        expression (str): säännöllinen lauseke infix-muodossa
-
-    Returns:
-        list: säännöllinen lauseke postfix-muodossa
-    """
-
-    stack = Stack()
-    postfix = []
-    operator_precedence = {'|': 1, '.': 2, '*': 3, '(': 0}
-    operators = ['*', '|', '.']
+from node import Node
+from utils import get_child_number, has_all_children, get_postfix
 
 
-    for character in expression:
+class SyntaxTree:
+    '''
+    Luokka kuvaa syntaksipuuta.
+
+    Attribuutit:
+        root (Node): puun juurisolmu
+        focus_node (Node): käsittelyssä oleva solmu
+
+    '''
+
+    def __init__(self):
+        '''
+        Luokan konstruktori, joka luo uuden puun
+        '''
+        self.root = None
+        self.focus_node = None
+
+  
+    def add(self, number: int, character: str):
+        '''
+        Metodi lisää uuden solmun puuhun
+
+        Args:
+            number (int): lisättävän solmun numero
+            character (str): lisättävän solmun arvo (säännöllisen lausekkeen operandi tai operaattori)
+        '''
+        node = Node(number, character)
+        node.max_children = get_child_number(node.character)
+        if self.focus_node.max_children == 2:
+            
+            if self.focus_node.right == None:
+                
+                self.focus_node.right=node
+                node.parent = self.focus_node
+                
+                self.focus_node = node
+            
+            else:
+                
+                self.focus_node.left=node
+                node.parent = self.focus_node
+                
+                self.focus_node = node
         
-        if character not in operators and character != '(' and character != ')':
-            postfix.append(character)
-        else:
-            if character == '(':
-                stack.push(character)
-            elif character in operators:
-                stack_top_operator = stack.top()
-                if stack_top_operator == None:
-                    stack.push(character)
-                else:
-                    stack_top_operator_precedence = operator_precedence[stack_top_operator]
-                    character_precedence = operator_precedence[character]
-                    if stack_top_operator_precedence < character_precedence:
-                        stack.push(character)
-                    elif stack_top_operator_precedence >= character_precedence:
-                        operator_to_postfix_queue = stack.pop()
-                        postfix.append(operator_to_postfix_queue)                        
-                        stack.push(character)
-            elif character == ')':
-                while True:
-                    operator_to_postfix_queue = stack.pop()
-                    if operator_to_postfix_queue != '(' and operator_to_postfix_queue != None:
-                        postfix.append(operator_to_postfix_queue)
-                    else:
-                        break
+        elif self.focus_node.max_children == 1:
+            
+            self.focus_node.left=node
+            node.parent = self.focus_node
+            
+            self.focus_node = node
+        
+        
 
-    while len(stack) > 0:
-        operator_to_postfix_queue = stack.pop()
-        postfix.append(operator_to_postfix_queue)
+        while self.focus_node != self.root and has_all_children(self.focus_node):
+            
+            self.focus_node = self.focus_node.parent
 
-    return postfix            
+    
+   
+    def get_tree(self):
+        '''
+        Metodi palauttaa puun sanakirjamuodossa
+        '''
+        nodes = {}
+        self.traverse(self.root, nodes)
+        return nodes
+    
+    def traverse(self, node: Node, nodes: dict):
+        '''
+        Metodi käy läpi puun alkiot ja lisää ne sanakirjaan.
+
+        Args:
+            node (Node): vuorossa oleva solmu
+            nodes (dict): solmujen tiedot sisältävä sanakirja
+        '''
+        if not node:
+            return
+        self.traverse(node.left, nodes)
+        nodes[node.number] = {'character': node.character, 'left': node.left, 'right': node.right, 'parent': node.parent, 'max_children': node.max_children}
+        self.traverse(node.right, nodes)
 
 
 
 if __name__ == "__main__":
-    print(get_postfix('(a|b)*.a.b.b.#'))
+    postfix = get_postfix('(a|b)*.a.b.b.#')
+    expression = postfix[::-1]
+    s = SyntaxTree()
+    s.root = Node(1, expression[0])
+    s.root.max_children = get_child_number(s.root.character)
+
+    s.focus_node = s.root
+    for i in range(1, len(expression)):
+        s.add(i+1, expression[i])
+
+    print(s.get_tree())
+
+
+
+ 
 
 
 
