@@ -39,4 +39,13 @@ jobs:
         working-directory: ./Compiler
         run: poetry install --no-root
 
+      - name: Run tests
+        working-directory: ./Compiler
+        run: poetry run coverage run --branch -m pytest
+      - name: Coverage report
+        working-directory: ./Compiler
+        run: poetry run coverage xml
+      - name: Coverage report to Codecov
+        uses: codecov/codecov-action@v2
+
       
