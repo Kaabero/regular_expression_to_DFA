@@ -10,6 +10,7 @@ python = "^3.10"
 fastapi = "^0.120.1"
 uvicorn = "^0.38.0"
 pylint = "^4.0.2"
+pytest-cov = "^7.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
