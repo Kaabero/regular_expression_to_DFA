@@ -5,6 +5,9 @@ class Stack:
     def __init__(self):
         '''
         Luokan konstruktori, joka luo uuden pinon
+
+        Attribuutit:
+            stack (list): pino
         '''
         self.stack = []
 
