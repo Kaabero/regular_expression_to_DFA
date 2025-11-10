@@ -3,7 +3,7 @@ from stack import Stack
 
 
 def get_child_number(character: str):
-    """
+    '''
     Funktio, joka palauttaa syntaksipuussa olevan solmun (säännöllisen lausekkeen operaattorin tai operandin) tarvittavien lasten määrän
 
     Args:
@@ -11,7 +11,7 @@ def get_child_number(character: str):
 
     Returns:
         int: solmun tarvittavien lasten määrä
-    """
+    '''
     if character in ['|', '.']:
         return 2
     if character == '*':
@@ -19,7 +19,7 @@ def get_child_number(character: str):
     return 0
 
 def has_all_children(node: Node):
-    """
+    '''
     Funktio, joka kertoo, onko solmulla jo tarvittava määrä lapsia
 
     Args:
@@ -27,7 +27,7 @@ def has_all_children(node: Node):
 
     Returns:
         boolean: palauttaa True vain, jos solmulla on jo tarvittava määrä lapsia
-    """
+    '''
     if node.character not in ['|', '.', '*']:
         return True
     if node.character == '*' and node.left != None:
@@ -38,7 +38,7 @@ def has_all_children(node: Node):
 
 def get_postfix(expression: str):
 
-    """
+    '''
     Funktio, joka tuottaa infix-muotoa olevasta säännöllisestä lausekkeesta postfix-muotoa olevan.
 
     Args:
@@ -46,7 +46,7 @@ def get_postfix(expression: str):
 
     Returns:
         list: säännöllinen lauseke postfix-muodossa
-    """
+    '''
 
     stack = Stack()
     postfix = []
@@ -87,5 +87,104 @@ def get_postfix(expression: str):
         postfix.append(operator_to_postfix_queue)
 
     return postfix
+
+def get_nullable(node: Node):
+    '''
+    Funktio, joka palauttaa True mikäli solmun edustama osalauseke voi tuottaa tyhjän merkkijonon.
+
+    Args:
+        node (Node): tarkasteltava solmu
+
+    '''
+    if node.character == '€'or node.character == '*':
+        return True
+    elif node.character == '.':
+        return get_nullable(node.left) and get_nullable(node.right)
+    elif node.character == '|':
+        return get_nullable(node.left) or get_nullable(node.right)
+
+    return False
+
+def get_firstpos(node: Node):
+    '''
+    Funktio, joka palauttaa ne lehtisolmut, jotka voivat olla ensimmäisiä merkkejä solmun tuottamissa merkkijonoissa.
+
+    Args:
+        node (Node): tarkasteltava solmu
+
+    Returns:
+        list: Joukko lehtisolmuja, jotka voivat olla ensimmäisiä merkkejä solmun tuottamissa merkkijonoissa.
+
+    '''
+    if node.character == '€':
+        return []
+    elif node.character == '|':
+        left = get_firstpos(node.left)
+        right = get_firstpos(node.right) 
+        return left + right
+    elif node.character == '.':
+        if get_nullable(node.left):
+            left = get_firstpos(node.left)
+            right = get_firstpos(node.right) 
+            return left + right
+        else:
+           return get_firstpos(node.left)
+            
+    elif node.character == '*':
+        return get_firstpos(node.left)
+    
+    return [node]
+
+
+def get_lastpos(node: Node):
+    '''
+    Funktio, joka palauttaa ne lehtisolmut, jotka voivat olla viimeisiä merkkejä solmun tuottamissa merkkijonoissa.
+    
+    Args:
+        node (Node): tarkasteltava solmu
+
+    Returns:
+        list: Joukko lehtisolmuja, jotka voivat olla viimeisiä merkkejä solmun tuottamissa merkkijonoissa.
+
+    '''
+    if node.character == '€':
+        return []
+    elif node.character == '|':
+        left = get_lastpos(node.left)
+        right = get_lastpos(node.right) 
+        return left + right
+    elif node.character == '.':
+        if get_nullable(node.right):
+            left = get_lastpos(node.left)
+            right = get_lastpos(node.right) 
+            return left + right
+        else:
+           return get_lastpos(node.right)
+            
+    elif node.character == '*':
+        return get_lastpos(node.left)
+    
+    return [node]
+
+def get_followpos(node: Node):
+    '''
+    Funktio, joka asettaa solmun followpos arvoksi listan niistä lehtisolmuista, 
+    jotka voivat seurata kyseistä solmua lausekkeen mahdollisissa merkkijonoissa.
+    
+    Args:
+        node (Node): tarkasteltava solmu
+
+    '''
+   
+    if node.character == '.':
+     
+        for n in node.left.lastpos:
+            n.followpos += node.right.firstpos
+
+    elif node.character == '*':
+        for n in node.lastpos:
+            n.followpos += node.firstpos
+           
+
 
 

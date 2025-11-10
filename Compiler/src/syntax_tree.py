@@ -1,14 +1,14 @@
 from node import Node
-from utils import get_child_number, has_all_children, get_postfix
+from utils import get_child_number, has_all_children, get_postfix, get_nullable, get_firstpos, get_lastpos, get_followpos
 
 
 class SyntaxTree:
     '''
-    Luokka kuvaa syntaksipuuta.
+    Luokka kuvaa syntaksipuuta deterministisen automaatin (DFA) rakentamista varten. 
 
     Attribuutit:
-        root (Node): puun juurisolmu
-        focus_node (Node): käsittelyssä oleva solmu
+        root (Node | None): puun juurisolmu
+        focus_node (Node | None): käsittelyssä oleva solmu
 
     '''
 
@@ -24,7 +24,7 @@ class SyntaxTree:
 
     def build_tree(self, postfix):
         '''
-        Metodi rakentaa puun postfix-muodossa olevasta säännöllisestä lausekkeesta
+        Metodi rakentaa syntaksipuun postfix-muodossa olevasta säännöllisestä lausekkeesta
 
         Args:
             postfix (list): säännöllinen lauseke postfix-muodossa 
@@ -36,6 +36,40 @@ class SyntaxTree:
         self.focus_node = self.root
         for i in range(1, len(expression)):
             self.add(i+1, expression[i])
+
+       
+        self.set_nullable_firstpos_and_lastpos(self.root)
+        self.set_followpos(self.root)
+
+
+    def set_nullable_firstpos_and_lastpos(self, node: Node):
+        '''
+        Metodi käy läpi puun alkiot ja lisää niille nullable, firstpos ja lastpos arvot.
+
+        Args:
+            node (Node): vuorossa oleva solmu
+        '''
+        if not node:
+            return
+        self.set_nullable_firstpos_and_lastpos(node.left)
+        node.nullable = get_nullable(node)
+        node.firstpos = get_firstpos(node)
+        node.lastpos = get_lastpos(node)
+        self.set_nullable_firstpos_and_lastpos(node.right)
+
+    def set_followpos(self, node: Node):
+        '''
+        Metodi käy läpi puun alkiot ja lisää niille followpos arvon.
+
+        Args:
+            node (Node): vuorossa oleva solmu
+        '''
+        if not node:
+            return
+        self.set_followpos(node.left)
+        get_followpos(node)
+        self.set_followpos(node.right)
+
 
 
   
@@ -99,17 +133,33 @@ class SyntaxTree:
         if not node:
             return
         self.traverse(node.left, nodes)
-        nodes[node.number] = {'character': node.character, 'left': node.left, 'right': node.right, 'parent': node.parent, 'max_children': node.max_children}
+       
+        nodes[node.number] = {
+            'character': node.character, 
+            'left': node.left, 
+            'right': node.right, 
+            'parent': node.parent, 
+            'max_children': node.max_children,
+            'nullable': node.nullable,
+            'firstpos': node.firstpos,
+            'lastpos': node.lastpos,
+            'followpos': node.followpos
+            }
         self.traverse(node.right, nodes)
 
-'''
+
+
 if __name__ == "__main__":
 
     postfix = get_postfix('(a|b)*.a.b.b.#')
+    #postfix = get_postfix('(a|b*).c.#')
+    #postfix = get_postfix('(a|€).b*.#')
     s = SyntaxTree()
     s.build_tree(postfix)
     print(s.get_tree())
-'''
+    print(s.root.firstpos)
+    
+
 
 
 
