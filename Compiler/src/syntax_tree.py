@@ -148,7 +148,7 @@ class SyntaxTree:
         self.traverse(node.right, nodes)
 
 
-
+'''
 if __name__ == "__main__":
 
     postfix = get_postfix('(a|b)*.a.b.b.#')
@@ -158,6 +158,7 @@ if __name__ == "__main__":
     s.build_tree(postfix)
     print(s.get_tree())
     print(s.root.firstpos)
+'''
     
 
 
