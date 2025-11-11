@@ -1,6 +1,6 @@
 from node import Node
-from utils import get_child_number, has_all_children, get_postfix, get_nullable, get_firstpos, get_lastpos, get_followpos
-
+from utils import get_child_number, has_all_children, get_postfix
+from utils import get_nullable, get_firstpos, get_lastpos, get_followpos
 
 class SyntaxTree:
     '''
@@ -20,7 +20,6 @@ class SyntaxTree:
         '''
         self.root = None
         self.focus_node = None
-     
 
     def build_tree(self, postfix):
         '''
@@ -37,10 +36,8 @@ class SyntaxTree:
         for i in range(1, len(expression)):
             self.add(i+1, expression[i])
 
-       
         self.set_nullable_firstpos_and_lastpos(self.root)
         self.set_followpos(self.root)
-
 
     def set_nullable_firstpos_and_lastpos(self, node: Node):
         '''
@@ -70,50 +67,43 @@ class SyntaxTree:
         get_followpos(node)
         self.set_followpos(node.right)
 
-
-
-  
     def add(self, number: int, character: str):
         '''
         Metodi lisää uuden solmun puuhun
 
         Args:
             number (int): lisättävän solmun numero
-            character (str): lisättävän solmun arvo (säännöllisen lausekkeen operandi tai operaattori)
+            character (str): lisättävän solmun arvo (säännöllisen lausekkeen operandi/operaattori)
         '''
         node = Node(number, character)
         node.max_children = get_child_number(node.character)
         if self.focus_node.max_children == 2:
-            
-            if self.focus_node.right == None:
-                
-                self.focus_node.right=node
+
+            if self.focus_node.right is None:
+
+                self.focus_node.right = node
                 node.parent = self.focus_node
-                
+
                 self.focus_node = node
-            
+
             else:
-                
-                self.focus_node.left=node
+
+                self.focus_node.left = node
                 node.parent = self.focus_node
-                
+
                 self.focus_node = node
-        
+
         elif self.focus_node.max_children == 1:
-            
-            self.focus_node.left=node
+
+            self.focus_node.left = node
             node.parent = self.focus_node
-            
+
             self.focus_node = node
-        
-        
 
         while self.focus_node != self.root and has_all_children(self.focus_node):
-            
+
             self.focus_node = self.focus_node.parent
 
-    
-   
     def get_tree(self):
         '''
         Metodi palauttaa puun sanakirjamuodossa
@@ -121,7 +111,7 @@ class SyntaxTree:
         nodes = {}
         self.traverse(self.root, nodes)
         return nodes
-    
+
     def traverse(self, node: Node, nodes: dict):
         '''
         Metodi käy läpi puun alkiot ja lisää ne sanakirjaan.
@@ -133,39 +123,26 @@ class SyntaxTree:
         if not node:
             return
         self.traverse(node.left, nodes)
-       
+
         nodes[node.number] = {
-            'character': node.character, 
-            'left': node.left, 
-            'right': node.right, 
-            'parent': node.parent, 
+            'character': node.character,
+            'left': node.left,
+            'right': node.right,
+            'parent': node.parent,
             'max_children': node.max_children,
             'nullable': node.nullable,
             'firstpos': node.firstpos,
             'lastpos': node.lastpos,
             'followpos': node.followpos
-            }
+        }
         self.traverse(node.right, nodes)
 
 
-'''
+
 if __name__ == "__main__":
 
-    postfix = get_postfix('(a|b)*.a.b.b.#')
     #postfix = get_postfix('(a|b*).c.#')
     #postfix = get_postfix('(a|€).b*.#')
     s = SyntaxTree()
-    s.build_tree(postfix)
+    s.build_tree(get_postfix('(a|b)*.a.b.b.#'))
     print(s.get_tree())
-    print(s.root.firstpos)
-'''
-    
-
-
-
-
- 
-
-
-
-    

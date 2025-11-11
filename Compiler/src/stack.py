@@ -2,6 +2,7 @@ class Stack:
     '''
     Luokka toteuttaa pinotietorakenteen
     '''
+
     def __init__(self):
         '''
         Luokan konstruktori, joka luo uuden pinon
@@ -24,11 +25,10 @@ class Stack:
         '''
         Metodi palauttaa pinon ylimmän alkion
         '''
-        
+
         if len(self.stack) > 0:
             return self.stack[-1]
-        else:
-            return None
+        return None
 
     def pop(self):
         '''
@@ -38,9 +38,8 @@ class Stack:
         '''
         if len(self.stack) > 0:
             return self.stack.pop()
-        else:
-            return None
-   
+        return None
+
     def __len__(self):
         '''
         Metodi palauttaa pinon koon

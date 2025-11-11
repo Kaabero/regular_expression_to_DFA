@@ -12,14 +12,13 @@ class TestSyntaxTree(unittest.TestCase):
         postfix = get_postfix('a.#')
         self.assertEqual(postfix, ['a', '#', '.'])
         self.tree.build_tree(postfix)
-         
+
         assert self.tree.root.character == '.'
         assert self.tree.root.right.character == '#'
         assert self.tree.root.left.character == 'a'
         assert self.tree.root.right.parent == self.tree.root
         assert self.tree.root.left.parent == self.tree.root
         assert self.tree.focus_node == self.tree.root
-
 
     def test_add_creates_both_right_and_left_child_for_union_operator(self):
         postfix = get_postfix('(a|b).#')
@@ -33,12 +32,11 @@ class TestSyntaxTree(unittest.TestCase):
         assert self.tree.root.right.parent == self.tree.root
         assert self.tree.root.left.parent == self.tree.root
         assert self.tree.focus_node == self.tree.root
-    
+
     def test_add_creates_only_left_child_for_star_operator(self):
         postfix = get_postfix('a.(b)*.#')
         self.assertEqual(postfix, ['a', 'b', '*', '#', '.', '.'])
         self.tree.build_tree(postfix)
-
 
         assert self.tree.root.left.character == 'a'
         assert self.tree.root.right.character == '.'
@@ -47,7 +45,7 @@ class TestSyntaxTree(unittest.TestCase):
         assert self.tree.root.right.left.left.character == 'b'
         assert self.tree.root.left.parent == self.tree.root
         assert self.tree.focus_node == self.tree.root
-    
+
     def test_add_sets_the_focus_node_correctly(self):
         self.tree.root = Node(1, '.')
         self.tree.root.max_children = 2
@@ -60,11 +58,10 @@ class TestSyntaxTree(unittest.TestCase):
         assert self.tree.root.left.character == '.'
         assert self.tree.root.right.character == 'a'
         assert self.tree.focus_node == self.tree.root.left
-    
+
     def test_get_postfix_works_correctly_when_stack_is_empty(self):
         postfix = get_postfix('a)')
         self.assertEqual(postfix, ['a'])
-
 
     def test_get_tree_returns_dict(self):
         postfix = get_postfix('a.#')
@@ -72,7 +69,6 @@ class TestSyntaxTree(unittest.TestCase):
         self.tree.build_tree(postfix)
 
         tree = self.tree.get_tree()
-        
 
         assert isinstance(tree, dict)
         assert 1 in tree
@@ -80,7 +76,6 @@ class TestSyntaxTree(unittest.TestCase):
         assert tree[1]['character'] == '.'
         assert tree[2]['character'] == '#'
         assert tree[3]['character'] == 'a'
-        
 
     def test_nullable_firstpos_and_lastpos_are_set_correctly(self):
         postfix = get_postfix('a*.(€|b).#')
@@ -125,9 +120,8 @@ class TestSyntaxTree(unittest.TestCase):
         assert [n.number for n in star.firstpos] == [a.number]
         assert [n.number for n in union.firstpos] == [b.number]
         assert [n.number for n in cat.firstpos] == [a.number, b.number]
-        assert [n.number for n in root.firstpos] == [a.number, b.number, hash.number]
-
-
+        assert [n.number for n in root.firstpos] == [
+            a.number, b.number, hash.number]
 
         assert [n.number for n in a.lastpos] == [a.number]
         assert [n.number for n in b.lastpos] == [b.number]
@@ -139,8 +133,8 @@ class TestSyntaxTree(unittest.TestCase):
         assert [n.number for n in cat.lastpos] == [a.number, b.number]
         assert [n.number for n in root.lastpos] == [hash.number]
 
-
-        assert [n.number for n in a.followpos] == [a.number, b.number, hash.number]
+        assert [n.number for n in a.followpos] == [
+            a.number, b.number, hash.number]
         assert [n.number for n in b.followpos] == [hash.number]
         assert [n.number for n in epsilon.followpos] == []
         assert [n.number for n in hash.followpos] == []
@@ -149,17 +143,3 @@ class TestSyntaxTree(unittest.TestCase):
         assert union.followpos == None
         assert cat.followpos == None
         assert root.followpos == None
-
-
-   
-
-
-
-
-
-   
-
-      
-
-        
-   

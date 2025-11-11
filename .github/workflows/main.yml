@@ -39,6 +39,10 @@ jobs:
         working-directory: ./Compiler
         run: poetry install --no-root
 
+      - name: Lint
+        working-directory: ./Compiler
+        run:  poetry run pylint src
+
       - name: Run tests
         working-directory: ./Compiler
         run: poetry run coverage run --branch -m pytest
