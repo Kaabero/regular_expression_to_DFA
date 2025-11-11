@@ -1,8 +1,11 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+import json
+from src.utils import validate_input, format_input_for_syntax_tree, get_postfix
+from src.syntax_tree import SyntaxTree
 
-app = FastAPI()
+app = FastAPI() 
 
 app.add_middleware(
     CORSMiddleware,
@@ -19,12 +22,22 @@ regex = None
 
 @app.post("/api/regex")
 def create_regex(data: RegularExpression):
-    result = list(data.regex)
-    response = {"regex": data.regex, "result": result}
-    global regex
-    regex = result
-    return response
+    if validate_input(data.regex):
+        infix = format_input_for_syntax_tree(data.regex)
+        s = SyntaxTree()
+        s.build_tree(get_postfix(infix))
+        result = s.get_tree()
+        result_json = json.loads(json.dumps(result, default=str))
+        response = {"regex": data.regex, "result": result_json}
+        global regex
+        regex = result_json
+        return response
+    return
 
 @app.get("/api/regex")
 def get_regex():
     return {"regex": regex}
+
+
+
+        
