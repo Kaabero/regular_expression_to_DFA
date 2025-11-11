@@ -45,7 +45,6 @@ class Node:
         self.lastpos = None
         self.followpos = []
 
-
     def __repr__(self):
         '''
         Metodi palauttaa solmun numeron merkkijonona

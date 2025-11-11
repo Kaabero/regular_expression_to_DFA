@@ -1,6 +1,7 @@
 from src.node import Node
-from src.utils import get_child_number, has_all_children, get_postfix
+from src.utils import get_child_number, has_all_children
 from src.utils import get_nullable, get_firstpos, get_lastpos, get_followpos
+
 
 class SyntaxTree:
     '''
@@ -136,4 +137,3 @@ class SyntaxTree:
             'followpos': {n.number for n in node.followpos} if node.followpos else set()
         }
         self.traverse(node.right, nodes)
-
