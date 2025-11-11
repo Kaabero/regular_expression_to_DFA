@@ -1,5 +1,5 @@
-from node import Node
-from stack import Stack
+from src.node import Node
+from src.stack import Stack
 
 
 def get_child_number(character: str):
@@ -190,3 +190,71 @@ def get_followpos(node: Node):
     elif node.character == '*':
         for n in node.lastpos:
             n.followpos += node.firstpos
+
+def validate_input(input :str):
+    '''
+    Funktio, joka tarkistaa, onko käyttäjän antama syöte on oikeaa muotoa.
+
+    Args:
+        input (str): käyttäjän antama syöte (säännöllinen lauseke)
+    
+    Returns:
+        True, jos käyttäjän antama syöte on oikeaa muotoa
+        
+    '''
+
+    p = Stack()
+    if '#' in input:
+        raise Exception("Virheellinen syöte: Syöte ei voi sisältää #-merkkiä.")
+    if '.' in input:
+        raise Exception("Virheellinen syöte: Syöte ei voi sisältää pistettä.")
+    if input[0] in ['*', '|']:
+        raise Exception("Virheellinen syöte: Syöte ei voi alkaa operaattorilla.")
+
+    if input[-1] in ['(', '|']:
+        raise Exception("Virheellinen viimeinen merkki.")
+     
+    for i in range(len(input)):
+        if input[i]=='(':
+            if input[i+1]==')' or input[i+1] in ['*', '|']:
+                raise Exception("Virheellinen syöte: Tarkista sulkeiden käyttö.")
+            p.push(input[i])
+        if input[i]==')':
+            parenthesis = p.pop()
+            if parenthesis != '(':
+                raise Exception("Virheellinen syöte: Tarkista sulkeiden käyttö.")
+        if input[i]=='*':
+            if input[i-1] in ['*', '|', '€']:
+                raise Exception("Virheellinen tähtioperaation käyttö.")
+        if input[i] == '|':
+            if input[i-1] == '|' or input[i+1] in ['*', '|', ')']:
+                raise Exception("Virheellinen yhdisteoperaation käyttö.")
+
+    if len(p) != 0:
+        raise Exception("Virheellinen syöte: Tarkista sulkeiden käyttö.")
+
+    return True
+
+def format_input_for_syntax_tree(input: str):
+    '''
+    Funktio, joka palauttaa käyttäjän antaman syötteen infix muodossa.
+
+    Args:
+        input (str): käyttäjän antama syöte (säännöllinen lauseke)
+    
+    Returns:
+        list: käyttäjän antama syöte infix muodossa
+    '''
+    infix = '('
+    for i in range(len(input)-1):
+        infix+=input[i]
+        if input[i] not in ['(', '|']:
+            if input[i+1] not in ['*', '|', ')']:
+                infix+='.'
+        
+    infix+=input[-1]
+    infix+=')'
+    infix+='.'             
+    infix+='#'
+    
+    return infix

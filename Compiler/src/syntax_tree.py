@@ -1,6 +1,6 @@
-from node import Node
-from utils import get_child_number, has_all_children, get_postfix
-from utils import get_nullable, get_firstpos, get_lastpos, get_followpos
+from src.node import Node
+from src.utils import get_child_number, has_all_children, get_postfix
+from src.utils import get_nullable, get_firstpos, get_lastpos, get_followpos
 
 class SyntaxTree:
     '''
@@ -131,18 +131,9 @@ class SyntaxTree:
             'parent': node.parent,
             'max_children': node.max_children,
             'nullable': node.nullable,
-            'firstpos': node.firstpos,
-            'lastpos': node.lastpos,
-            'followpos': node.followpos
+            'firstpos': {n.number for n in node.firstpos} if node.firstpos else set(),
+            'lastpos': {n.number for n in node.lastpos} if node.lastpos else set(),
+            'followpos': {n.number for n in node.followpos} if node.followpos else set()
         }
         self.traverse(node.right, nodes)
 
-
-
-if __name__ == "__main__":
-
-    #postfix = get_postfix('(a|b*).c.#')
-    #postfix = get_postfix('(a|€).b*.#')
-    s = SyntaxTree()
-    s.build_tree(get_postfix('(a|b)*.a.b.b.#'))
-    print(s.get_tree())

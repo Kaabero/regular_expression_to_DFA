@@ -43,10 +43,8 @@ class Node:
         self.nullable = None
         self.firstpos = None
         self.lastpos = None
-        if character in ['|', '*', '.']:
-            self.followpos = None
-        else:
-            self.followpos = []
+        self.followpos = []
+
 
     def __repr__(self):
         '''
