@@ -133,13 +133,14 @@ class TestSyntaxTree(unittest.TestCase):
         assert [n.number for n in cat.lastpos] == [a.number, b.number]
         assert [n.number for n in root.lastpos] == [hash.number]
 
-        assert [n.number for n in a.followpos] == [
-            a.number, b.number, hash.number]
-        assert [n.number for n in b.followpos] == [hash.number]
-        assert [n.number for n in epsilon.followpos] == []
-        assert [n.number for n in hash.followpos] == []
+        assert {n.number for n in a.followpos} == {a.number, b.number, hash.number}
+     
+        assert {n.number for n in b.followpos} == {hash.number}
+        assert {n.number for n in epsilon.followpos} == set()
+        assert {n.number for n in hash.followpos} == set()
+        assert {n.number for n in star.followpos} == set()
+        assert {n.number for n in union.followpos} == set()
+        assert {n.number for n in cat.followpos} == set()
+        assert {n.number for n in root.followpos} == set()
 
-        assert star.followpos == None
-        assert union.followpos == None
-        assert cat.followpos == None
-        assert root.followpos == None
+
