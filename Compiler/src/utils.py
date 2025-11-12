@@ -212,10 +212,6 @@ def validate_input(user_input: str):
     p = Stack()
     if user_input == '':
         raise ValueError("Virheellinen syöte: Syöte ei voi olla tyhjä.")
-    if '#' in user_input:
-        raise ValueError("Virheellinen syöte: Syöte ei voi sisältää #-merkkiä.")
-    if '.' in user_input:
-        raise ValueError("Virheellinen syöte: Syöte ei voi sisältää pistettä.")
     if user_input[0] in ['*', '|']:
         raise ValueError(
             "Virheellinen syöte: Syöte ei voi alkaa operaattorilla.")
