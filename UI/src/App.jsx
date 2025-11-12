@@ -42,8 +42,8 @@ function App() {
                 - yhdiste | <br/>
                 - konkatenaatio (jätetään merkitsemättä) <br/> 
                 - tähti * <br/>
-                Tyhjä merkki: € <br/>
-                Lausekkeen aakkosto ei voi sisältää merkkiä . tai merkkiä #
+                Aakkosto voi sisältää isoja ja pieniä kirjaimia (a-z ja A-Z) sekä numeroita. <br/>
+                Lisäksi lauseke voi sisältää tyhjä merkin (€) sekä sulkumerkit. <br/>
               </span>
             </span>
           </div>

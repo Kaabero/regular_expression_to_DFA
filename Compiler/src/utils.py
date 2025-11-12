@@ -203,7 +203,15 @@ def validate_input(user_input: str):
 
     '''
 
+    for character in user_input:
+        if character==' ':
+            raise ValueError("Virheellinen syöte: Poista välilyönnit.")
+        if character not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789€|*()":
+            raise ValueError("Syöte sisältää virheellisiä merkkejä.")
+
     p = Stack()
+    if user_input == '':
+        raise ValueError("Virheellinen syöte: Syöte ei voi olla tyhjä.")
     if '#' in user_input:
         raise ValueError("Virheellinen syöte: Syöte ei voi sisältää #-merkkiä.")
     if '.' in user_input:
