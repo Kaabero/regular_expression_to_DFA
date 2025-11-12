@@ -212,12 +212,9 @@ def validate_input(user_input: str):
     p = Stack()
     if user_input == '':
         raise ValueError("Virheellinen syöte: Syöte ei voi olla tyhjä.")
-    if user_input[0] in ['*', '|']:
+    if user_input[0] in ['*', '|'] or user_input[-1] in ['(', '|']:
         raise ValueError(
-            "Virheellinen syöte: Syöte ei voi alkaa operaattorilla.")
-
-    if user_input[-1] in ['(', '|']:
-        raise ValueError("Virheellinen viimeinen merkki.")
+            "Virheellinen ensimmäinen tai viimeinen merkki.")
 
     for i in range(len(user_input)):
         if user_input[i] == '(':

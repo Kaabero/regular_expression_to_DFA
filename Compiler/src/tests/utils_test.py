@@ -2,7 +2,7 @@ import unittest
 from utils import validate_input, format_input_for_syntax_tree
 
 class TestValidateInput(unittest.TestCase):
-    def test_accepts_valid(self):
+    def test_accepts_valid_input(self):
         assert validate_input("(a|b)*abb")
         assert validate_input("(a|b)*|(a|b)*")
         assert validate_input("(a*|b)*abb")
