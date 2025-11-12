@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import json
@@ -20,9 +20,10 @@ class RegularExpression(BaseModel):
 
 regex = None
 
-@app.post("/api/regex")
-def create_regex(data: RegularExpression):
-    if validate_input(data.regex):
+@app.post("/api/dfa")
+def create_dfa(data: RegularExpression):
+    try:
+        validate_input(data.regex)
         infix = format_input_for_syntax_tree(data.regex)
         s = SyntaxTree()
         s.build_tree(get_postfix(infix))
@@ -32,7 +33,9 @@ def create_regex(data: RegularExpression):
         global regex
         regex = result_json
         return response
-    return
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 @app.get("/api/regex")
 def get_regex():
