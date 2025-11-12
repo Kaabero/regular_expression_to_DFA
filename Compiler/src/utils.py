@@ -199,7 +199,8 @@ def validate_input(user_input: str):
         user_input (str): käyttäjän antama syöte (säännöllinen lauseke)
 
     Returns:
-        True, jos käyttäjän antama syöte on oikeaa muotoa. Muussa tapauksessa funktio nostaa virheen (ValueError).
+        True, jos käyttäjän antama syöte on oikeaa muotoa. 
+        Muussa tapauksessa funktio nostaa virheen (ValueError).
 
     '''
 
@@ -242,7 +243,8 @@ def validate_input(user_input: str):
 
 def format_input_for_syntax_tree(user_input: str):
     '''
-    Funktio, joka palauttaa käyttäjän antaman syötteen oikeassa muodossa syntaksipuun rakentamista varten.
+    Funktio, joka palauttaa käyttäjän antaman syötteen 
+    oikeassa muodossa syntaksipuun rakentamista varten.
 
     Args:
         user_input (str): käyttäjän antama syöte (säännöllinen lauseke)
