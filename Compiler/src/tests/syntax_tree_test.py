@@ -9,7 +9,7 @@ class TestSyntaxTree(unittest.TestCase):
         self.tree = SyntaxTree()
 
     def test_add_creates_both_right_and_left_child_for_concatenation_operator(self):
-        postfix = get_postfix('a.#')
+        postfix = get_postfix('(a).#')
         self.assertEqual(postfix, ['a', '#', '.'])
         self.tree.build_tree(postfix)
 
@@ -21,7 +21,7 @@ class TestSyntaxTree(unittest.TestCase):
         assert self.tree.focus_node == self.tree.root
 
     def test_add_creates_both_right_and_left_child_for_union_operator(self):
-        postfix = get_postfix('(a|b).#')
+        postfix = get_postfix('((a|b)).#')
         self.assertEqual(postfix, ['a', 'b', '|', '#', '.'])
         self.tree.build_tree(postfix)
 
@@ -34,16 +34,21 @@ class TestSyntaxTree(unittest.TestCase):
         assert self.tree.focus_node == self.tree.root
 
     def test_add_creates_only_left_child_for_star_operator(self):
-        postfix = get_postfix('a.(b)*.#')
-        self.assertEqual(postfix, ['a', 'b', '*', '#', '.', '.'])
+        postfix = get_postfix('(a.(b)*).#')
+        self.assertEqual(postfix, ['a', 'b', '*', '.','#', '.'])
         self.tree.build_tree(postfix)
 
-        assert self.tree.root.left.character == 'a'
-        assert self.tree.root.right.character == '.'
-        assert self.tree.root.right.left.character == '*'
-        assert self.tree.root.right.left.right is None
-        assert self.tree.root.right.left.left.character == 'b'
-        assert self.tree.root.left.parent == self.tree.root
+        assert self.tree.root.left.character == '.'
+        assert self.tree.root.right.character == '#'
+        assert self.tree.root.right.left is None
+        assert self.tree.root.right.right is None
+        assert self.tree.root.left.left.character == 'a'
+        assert self.tree.root.left.right.character == '*'
+        assert self.tree.root.left.left.left is None
+        assert self.tree.root.left.left.right is None
+        assert self.tree.root.left.right.left.character =='b'
+        assert self.tree.root.left.right.right is None
+
         assert self.tree.focus_node == self.tree.root
 
     def test_add_sets_the_focus_node_correctly(self):
@@ -64,7 +69,7 @@ class TestSyntaxTree(unittest.TestCase):
         self.assertEqual(postfix, ['a'])
 
     def test_get_tree_returns_dict(self):
-        postfix = get_postfix('a.#')
+        postfix = get_postfix('(a).#')
         self.assertEqual(postfix, ['a', '#', '.'])
         self.tree.build_tree(postfix)
 
@@ -78,7 +83,7 @@ class TestSyntaxTree(unittest.TestCase):
         assert tree[3]['character'] == 'a'
 
     def test_nullable_firstpos_and_lastpos_are_set_correctly(self):
-        postfix = get_postfix('a*.(€|b).#')
+        postfix = get_postfix('(a*.(€|b)).#')
         self.assertEqual(postfix, ['a', '*', '€', 'b', '|', '.', '#', '.'])
         self.tree.build_tree(postfix)
         root = self.tree.root
@@ -143,3 +148,40 @@ class TestSyntaxTree(unittest.TestCase):
         assert {n.number for n in union.followpos} == set()
         assert {n.number for n in cat.followpos} == set()
         assert {n.number for n in root.followpos} == set()
+    
+    def test_creates_the_same_syntax_tree_for_equivalent_expressions(self):
+        postfix = get_postfix('(a.b.c).#')
+        self.tree.build_tree(postfix)
+        tree1 = self.tree.get_tree()
+        postfix = get_postfix('((a.b).c).#')
+        self.tree.build_tree(postfix)
+        tree2 = self.tree.get_tree()
+        postfix = get_postfix('((a.b.c)).#')
+        self.tree.build_tree(postfix)
+        tree3 = self.tree.get_tree()
+        
+        assert tree1 == tree2
+        assert tree1 == tree3
+
+        postfix = get_postfix('(a|b|c).#')
+        self.tree.build_tree(postfix)
+        tree4 = self.tree.get_tree()
+        postfix = get_postfix('((a|b)|c).#')
+        self.tree.build_tree(postfix)
+        tree5 = self.tree.get_tree()
+        postfix = get_postfix('((a|b|c)).#')
+        self.tree.build_tree(postfix)
+        tree6 = self.tree.get_tree()
+
+        assert tree4 == tree5
+        assert tree4 == tree6
+
+
+
+
+        
+
+        
+
+
+

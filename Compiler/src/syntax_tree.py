@@ -127,9 +127,9 @@ class SyntaxTree:
 
         nodes[node.number] = {
             'character': node.character,
-            'left': node.left,
-            'right': node.right,
-            'parent': node.parent,
+            'left': node.left.number if node.left else None,
+            'right': node.right.number if node.right else None,
+            'parent': node.parent.number if node.parent else None,
             'max_children': node.max_children,
             'nullable': node.nullable,
             'firstpos': {n.number for n in node.firstpos} if node.firstpos else set(),
