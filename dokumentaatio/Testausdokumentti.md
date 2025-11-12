@@ -19,7 +19,7 @@ poetry run invoke coverage
 
 Automaattisia testejä on 22 kappaletta. Testien haarautumakattavuus on 99%.
 
-![Testikattavuusraportti]([https://github.com/Kaabero/regular_expression_to_DFA/dokumentaatio/kuvat/Testikattavuusraportti.png](https://github.com/Kaabero/regular_expression_to_DFA/blob/main/dokumentaatio/kuvat/Testikattavuusraportti.png)
+![Testikattavuusraportti](https://github.com/Kaabero/regular_expression_to_DFA/blob/main/dokumentaatio/kuvat/Testikattavuusraportti.png)
 
 Testikattavuusraportti ajettu 12.11.2025
 
