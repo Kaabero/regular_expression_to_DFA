@@ -75,3 +75,17 @@ input {
   display: flex;
   justify-content: center;
 }
+
+.notification {
+  position: fixed;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-80%);
+  padding: 12px 24px;
+  border-radius: 8px;
+  background-color: #f70606;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}

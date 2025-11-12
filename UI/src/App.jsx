@@ -1,30 +1,61 @@
 import { useState } from 'react'
+import axios, { AxiosError } from 'axios'
 import './App.css'
 
 function App() {
   const [regex, setRegex] = useState('')
   const [response, setResponse] = useState(null)
   const [responseRegex, setResponseRegex] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+
 
   const sendRegex = async (event) => {
-    event.preventDefault()
-    const res = await fetch("http://127.0.0.1:8000/api/regex", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ regex: regex }),
-    })
-    const data = await res.json()
-    
-    setResponse(data.result)
-    setResponseRegex(data.regex)
-    setRegex("")
+    event.preventDefault();
+
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/dfa", {
+        regex: regex,
+      })
+      setResponse(response.data.result)
+      setResponseRegex(response .data.regex)
+      setRegex("")
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setErrorMessage(
+          error.response.data.detail || "Virhe palvelimella."
+        )
+        setResponse('')
+        setResponseRegex('')
+        setTimeout(() => {
+          setErrorMessage('')
+        }, 5000)      
+        
+      } else {
+        setErrorMessage("Odottamaton virhe tapahtui.")
+        setResponse('')
+        setResponseRegex('')
+        setTimeout(() => {
+          setErrorMessage('')
+        }, 5000)
+      }
+    }
+  }
+
+  const Notification = ({message}) => {
+    if (message != '') {
+      return (
+        <div className="notification">
+            <p> { message } </p>
+        </div>
+      )
+    }
   }
 
   return (
     <>
+      <Notification message={errorMessage} />
       <h2>Säännöllisestä lausekkeesta DFA:ksi</h2>
+      
       <div>
         <form className="form-field" onSubmit={sendRegex}>
         <label>
