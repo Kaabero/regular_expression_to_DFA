@@ -47,5 +47,7 @@ class TestValidateInput(unittest.TestCase):
 class TestFormatInputForSyntaxTree(unittest.TestCase):
     def test_format_input_for_syntax_tree_adds_concatenation_after_open_parenthesis(self):
         assert format_input_for_syntax_tree("(a|b)a") == "((a|b).a).#"
+    def test_format_input_for_syntax_tree_adds_concatenation_after_star_operation(self):
+        assert format_input_for_syntax_tree("(a|b)*a") == "((a|b)*.a).#"
     def test_format_input_for_syntax_tree_adds_concatenation_after_alphabet_symbol(self):
         assert format_input_for_syntax_tree("(a|b)abb") == "((a|b).a.b.b).#"
