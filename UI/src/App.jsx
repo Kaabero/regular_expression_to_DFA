@@ -95,15 +95,19 @@ function App() {
             <strong>Lauseke: </strong>{responseRegex} <br/>
             <strong>Tilat: </strong>{'{'}{states}{'}'}
             <br/>
-            <strong>Aakkosto: </strong>{'{'}{alphabet}{'}'}
+            <strong>Aakkosto: </strong>{alphabet.length > 0 ? <>{'{'}{alphabet}{'}'}</> : <>Tyhjä aakkosto</>}
             <br />
-            <strong>Siirtymät:</strong>
-            {Object.entries(response.transitions).map(([number, transition]) => (
-              <li style={{listStyleType: "none"}} key={number}>
-                δ({transition.from}, {transition.character})={transition.to}
-              </li>
-
-            ))}
+            <strong>Siirtymät: </strong>           
+            {Object.entries(response.transitions).length > 0 ? (
+              Object.entries(response.transitions).map(([number, transition]) => (
+                <li style={{listStyleType: "none"}} key={number}>
+                  δ({transition.from}, {transition.character})={transition.to}
+                </li>
+              ))
+            ) : (
+            <>Ei siirtymiä. <br/></> 
+            )}
+            
             <strong>Alkutila: </strong>{response.q_0} <br/>
             <strong>Hyväksyvät tilat: </strong>{'{'}{accepting_states}{'}'}
           </div>
