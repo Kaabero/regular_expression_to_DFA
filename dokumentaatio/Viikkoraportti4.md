@@ -1,4 +1,4 @@
-# Viikkoraportti 3
+# Viikkoraportti 4
 
 Viikon aluksi tein luokan DFA, joka muodostaa syntaksipuun perusteella deterministisen automaatin. Seuraavana päivänä lisäsin luokkaa DFA koskevia yksikkötestejä ja nimesin DFA:ssa olevat tilat luettavampaan muotoon. Parantelin myös hieman käyttöliittymäpuolta siten, että muodostetun DFA:n rakenne näkyy käyttäjälle tekstimuodossa. 
 
