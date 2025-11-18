@@ -76,9 +76,9 @@ class TestSyntaxTree(unittest.TestCase):
         tree = self.tree.get_tree()
 
         assert isinstance(tree, dict)
-        assert 1 in tree
+        assert 1 not in tree
         assert 2 in tree
-        assert tree[1]['character'] == '.'
+        assert 3 in tree
         assert tree[2]['character'] == '#'
         assert tree[3]['character'] == 'a'
 
