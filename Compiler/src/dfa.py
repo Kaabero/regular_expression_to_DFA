@@ -1,6 +1,25 @@
 class DFA:
+    '''
+    Luokka kuvaa determinististä automaattia (DFA), joka on rakennettu syntaksipuun perusteella. 
+
+    Attribuutit:
+        syntax_tree (dict): syntaksipuun tiedot
+        states (list): DFA:n tilat
+        tran (dict): DFA:n siirtymät
+        start_state (list): DFA:n alkutila
+        accepting_states (list): DFA:n hyväksyvät tilat
+        alphabet (list): DFA:n aakkosto
+        accepting_position (int | None): syntaksipuussa hyväksyvän merkin # paikka
+    '''
 
     def __init__(self, syntax_tree: dict, start_state: list):
+        '''
+        Luokan konstruktori, joka luo uuden DFA:n.
+
+        Args:
+            syntax_tree (dict): syntaksipuun tiedot
+            start_state (list): DFA:n alkutila
+        '''
         self.syntax_tree = syntax_tree
         self.states = [start_state]
         self.tran = {}
@@ -16,6 +35,10 @@ class DFA:
                 self.accepting_position=node
 
     def build_dfa(self):
+        '''
+        Metodi, joka rakentaa DFA:n ja palauttaa sen sanakirjamuodossa
+        
+        '''
         self.add_tran(self.start_state)
         for state in self.states:
             if self.accepting_position in state:
@@ -44,6 +67,13 @@ class DFA:
         return result
 
     def add_tran(self, positions: list):
+        '''
+        Metodi, joka muodostaa DFA:n tilat ja lisää jokaiseen tilaan aakkoston mukaiset siirtymät.
+
+        Args:
+            positions (list): Vuorossa oleva DFA:n tila
+
+        '''
         for character in self.alphabet:
             tran_state = []
 

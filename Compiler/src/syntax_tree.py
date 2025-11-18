@@ -107,7 +107,8 @@ class SyntaxTree:
 
     def get_tree(self):
         '''
-        Metodi palauttaa puun sanakirjamuodossa
+        Metodi palauttaa syntaksipuun sanakirjamuodossa 
+        dfa:n rakentamista varten
         '''
         nodes = {}
         self.traverse(self.root, nodes)
@@ -119,7 +120,7 @@ class SyntaxTree:
 
         Args:
             node (Node): vuorossa oleva solmu
-            nodes (dict): solmujen tiedot sisältävä sanakirja
+            nodes (dict): solmujen tietoja sisältävä sanakirja
         '''
         if not node:
             return
