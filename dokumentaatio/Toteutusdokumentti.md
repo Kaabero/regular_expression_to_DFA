@@ -1,0 +1,30 @@
+# Toteutusdokumentti
+
+## Ohjelman yleisrakenne
+
+Sovellus on kääntäjä, joka annetun säännölisen lausekkeen perusteella tuottaa deterministisen äärellisen automaatin (DFA:n), joka hyväksyy samat merkkijonot, kuin lauseke. Ohjelma tarkistaa ensin käyttäjän antaman syötteen oikean muodon ja muuttaa sen sitten postfix-muotoon käyttäen hyväksi Shunting Yard -algorimtia. Postfix-muotoa olevasta lausekkeesta ohjelma muodostaa syntaksipuun, jonka perusteella se muodostetaa deterministinen äärellisen automaatin. Käyttäjä näkee muodostetun DFA:n rakenteen käyttöliittymässä. 
+
+Varsinainen ohjelmalogiikka sijaitsee Compiler-hakemistossa. Syötteen validointiin ja sen muodon muuntamiseen liittyvät funktiot sijatsevat tiedostossa utils.py, joka käyttää hyväkseen pinotietorakennetta kuvaavaa luokkaa Stack. Syntaksipuun rakentamista varten on ohjelmassa luokka SyntaxTree, joka hyödyntää puun muodostamisessa luokkaa Node sekä solmujen käsittelyssä utils.py tiedoston funktioita. Lopullisen DFA:n muodostamista varten on ohjelmassa luokka DFA. Käyttöliittymään liittyvä koodi sijaitsee UI-hakemistossa.
+
+## Saavutetut aika- ja tilavaativuudet
+
+Lisätään myöhemmin
+
+
+## Työn mahdolliset puutteet ja parannusehdotukset
+
+Lisätään myöhemmin
+
+
+## Suurten kielimallien käyttö
+
+- Käytin ChatGPT:tä suomentamaan minulle joitain lähteissä olevia kohtia
+- Käytin ChatGPT:tä ehdottamaan, miten kommunikointi Pythonilla tehdyn backendin ja Reactilla+Javascriptillä tehdyn frontendin välillä kannattaa toteuttaa.
+- Käytin ChatGPT:tä apuna joissain CSS-ongelmissa
+
+## Käyteyt lähteet 
+
+- [YouTube: RE to DFA Direct Method (Anita Ramesh)](https://www.youtube.com/watch?v=p5MbSZ4nBho)
+- [Building a syntax tree from scratch using André’s Method (André Ovalle)](https://dev.to/andro095/building-a-syntax-tree-from-scratch-using-andres-method-5a54)
+- [GeeksForGeeks: Regular Expression to DFA](https://www.geeksforgeeks.org/compiler-design/regular-expression-to-dfa/)
+- [Stackoverflow: Time Complexity DFA construction from regex directly](https://stackoverflow.com/questions/21854074/time-complexity-dfa-construction-from-regex-directly)
