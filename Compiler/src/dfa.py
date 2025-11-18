@@ -9,7 +9,7 @@ class DFA:
         self.alphabet = []
         self.accepting_position = None
         for node in syntax_tree:
-            if syntax_tree[node]['character'] !='#':
+            if syntax_tree[node]['character'] not in ['#', '€']:
                 if syntax_tree[node]['character'] not in self.alphabet:
                     self.alphabet.append(syntax_tree[node]['character'])
             elif syntax_tree[node]['character'] =='#':
