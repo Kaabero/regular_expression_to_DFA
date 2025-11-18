@@ -9,8 +9,13 @@
 
 [Testausdokumentti](./dokumentaatio/Testausdokumentti.md)
 
+[Toteutusdokumentti](./dokumentaatio/Toteutusdokumentti.md)
+
 [Viikkoraportti 1](./dokumentaatio/Viikkoraportti1.md)
 
 [Viikkoraportti 2](./dokumentaatio/Viikkoraportti2.md)
 
 [Viikkoraportti 3](./dokumentaatio/Viikkoraportti3.md)
+
+[Viikkoraportti 4](./dokumentaatio/Viikkoraportti4.md)
+
