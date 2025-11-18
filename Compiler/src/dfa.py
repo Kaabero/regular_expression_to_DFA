@@ -23,13 +23,20 @@ class DFA:
             if self.accepting_position in state:
                 self.accepting_states.append(state)
         
+  
+        states = {tuple(s): i + 1 for i, s in enumerate(self.states)}
+        self.states = [states[tuple(s)] for s in self.states]
+        self.start_state = states[tuple(self.start_state)]
+        self.accepting_states = [states[tuple(s)] for s in self.accepting_states]
+
+       
         transitions = []
         for (from_positions, character), to_positions in self.tran.items():
             transitions.append({
-                "from": list(from_positions),
+                "from": states[tuple(from_positions)],
                 "character": character,
-                "to": to_positions
-            })
+                "to": states[tuple(to_positions)]
+        })
 
 
         result = {
@@ -39,12 +46,6 @@ class DFA:
             "accepting_states": self.accepting_states,
             "transitions": transitions
         }
-        
-        print('Q', self.states)
-        print('Q_0', self.start_state)
-        print('aakkosto', self.alphabet)
-        print('siirtymät', self.tran)
-        print('hyväksyvät tilat:', self.accepting_states)
 
         return result
     
