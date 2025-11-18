@@ -125,15 +125,10 @@ class SyntaxTree:
             return
         self.traverse(node.left, nodes)
 
-        nodes[node.number] = {
-            'character': node.character,
-            'left': node.left.number if node.left else None,
-            'right': node.right.number if node.right else None,
-            'parent': node.parent.number if node.parent else None,
-            'max_children': node.max_children,
-            'nullable': node.nullable,
-            'firstpos': {n.number for n in node.firstpos} if node.firstpos else set(),
-            'lastpos': {n.number for n in node.lastpos} if node.lastpos else set(),
-            'followpos': {n.number for n in node.followpos} if node.followpos else set()
-        }
+        if node.max_children == 0:
+
+            nodes[node.number] = {
+                'character': node.character,
+                'followpos': sorted(n.number for n in node.followpos)
+            }
         self.traverse(node.right, nodes)

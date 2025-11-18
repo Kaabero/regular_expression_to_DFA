@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import json
 from src.utils import validate_input, format_input_for_syntax_tree, get_postfix
 from src.syntax_tree import SyntaxTree
+from src.dfa import DFA
 
 app = FastAPI() 
 
@@ -27,7 +28,9 @@ def create_dfa(data: RegularExpression):
         infix = format_input_for_syntax_tree(data.regex)
         s = SyntaxTree()
         s.build_tree(get_postfix(infix))
-        result = s.get_tree()
+        syntax_tree = s.get_tree()
+        d = DFA(syntax_tree, sorted(n.number for n in s.root.firstpos))
+        result = d.build_dfa()
         result_json = json.loads(json.dumps(result, default=str))
         response = {"regex": data.regex, "result": result_json}
         global regex
