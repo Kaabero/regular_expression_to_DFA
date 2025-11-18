@@ -14,7 +14,7 @@ function App() {
 
     try {
       const response = await axios.post("http://127.0.0.1:8000/api/dfa", {
-        regex: regex,
+        regex: regex
       })
       setResponse(response.data.result)
       setResponseRegex(response .data.regex)
@@ -50,6 +50,9 @@ function App() {
       )
     }
   }
+  const states = response ? response.states.join(', ') : ''
+  const alphabet = response ? response.alphabet.join(', ') : ''
+  const accepting_states = response ? response.accepting_states.join(', ') : ''
 
   return (
     <>
@@ -75,6 +78,7 @@ function App() {
                 - tähti * <br/>
                 Aakkosto voi sisältää isoja ja pieniä kirjaimia (a-z ja A-Z) sekä numeroita. <br/>
                 Lisäksi lauseke voi sisältää tyhjä merkin (€) sekä sulkumerkit. <br/>
+                Käytä sulkeita aina, kun * ja | -operaatioihin liittyvien operandien pituus ylittää yhden merkin.
               </span>
             </span>
           </div>
@@ -86,19 +90,23 @@ function App() {
 
         {response && (
         <div>
-          <ul style={{ listStyleType: "none", padding: 0 }}>
-            Säännöllisen lausekkeen {responseRegex} syntaksipuu:
-            {Object.entries(response).map(([number, node]) => (
-              <li key={number}>
-              <strong>Node {number}</strong><br />
-              Merkki: {node.character}<br />
-              Oikea lapsi: {node.right != null ? node.right : 'Ei oikeaa lasta'} <br />
-              Vasen lapsi: {node.left != null ? node.left : 'Ei vasenta lasta'} <br />
-              Vanhempi: {node.parent != null ? node.parent : 'Ei vanhempaa'} <br />
-
+          <div>
+            <h3>Säännöllisen lausekkeen DFA:</h3>
+            <strong>Lauseke: </strong>{responseRegex} <br/>
+            <strong>Tilat: </strong>{'{'}{states}{'}'}
+            <br/>
+            <strong>Aakkosto: </strong>{'{'}{alphabet}{'}'}
+            <br />
+            <strong>Siirtymät:</strong>
+            {Object.entries(response.transitions).map(([number, transition]) => (
+              <li style={{listStyleType: "none"}} key={number}>
+                δ({transition.from}, {transition.character})={transition.to}
               </li>
+
             ))}
-          </ul>
+            <strong>Alkutila: </strong>{response.q_0} <br/>
+            <strong>Hyväksyvät tilat: </strong>{'{'}{accepting_states}{'}'}
+          </div>
         </div>
       )}
       </div>
