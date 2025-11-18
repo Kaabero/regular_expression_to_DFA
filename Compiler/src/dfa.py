@@ -1,4 +1,3 @@
-from src.syntax_tree import SyntaxTree
 class DFA:
 
     def __init__(self, syntax_tree: dict, start_state: list):
@@ -10,26 +9,22 @@ class DFA:
         self.alphabet = []
         self.accepting_position = None
         for node in syntax_tree:
-            if syntax_tree[node]['character'] !='#' and syntax_tree[node]['character'] not in self.alphabet:
-                self.alphabet.append(syntax_tree[node]['character'])
+            if syntax_tree[node]['character'] !='#':
+                if syntax_tree[node]['character'] not in self.alphabet:
+                    self.alphabet.append(syntax_tree[node]['character'])
             elif syntax_tree[node]['character'] =='#':
                 self.accepting_position=node
 
-        
-    
     def build_dfa(self):
         self.add_tran(self.start_state)
         for state in self.states:
             if self.accepting_position in state:
                 self.accepting_states.append(state)
-        
-  
         states = {tuple(s): i + 1 for i, s in enumerate(self.states)}
         self.states = [states[tuple(s)] for s in self.states]
         self.start_state = states[tuple(self.start_state)]
         self.accepting_states = [states[tuple(s)] for s in self.accepting_states]
 
-       
         transitions = []
         for (from_positions, character), to_positions in self.tran.items():
             transitions.append({
@@ -46,12 +41,9 @@ class DFA:
             "accepting_states": self.accepting_states,
             "transitions": transitions
         }
-
         return result
-    
 
     def add_tran(self, positions: list):
-        
         for character in self.alphabet:
             tran_state = []
 
@@ -60,9 +52,7 @@ class DFA:
                     for number in self.syntax_tree[position]['followpos']:
                         if number not in tran_state:
                             tran_state.append(number)
-        
             tran_state.sort()
-            
             if (tuple(positions), character) in self.tran:
                 return
             self.tran[tuple(positions), character] = tran_state
@@ -70,15 +60,3 @@ class DFA:
             if tran_state not in self.states:
                 self.states.append(tran_state)
                 self.add_tran(tran_state)
-       
-
-
-      
-
-
-
-
- 
-
-
-
