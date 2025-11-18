@@ -53,8 +53,6 @@ class DFA:
                         if number not in tran_state:
                             tran_state.append(number)
             tran_state.sort()
-            if (tuple(positions), character) in self.tran:
-                return
             self.tran[tuple(positions), character] = tran_state
 
             if tran_state not in self.states:
