@@ -1,7 +1,4 @@
 from src.node import Node
-from src.utils import get_child_number, has_all_children
-from src.utils import get_nullable, get_firstpos, get_lastpos, get_followpos
-
 
 class SyntaxTree:
     '''
@@ -16,8 +13,6 @@ class SyntaxTree:
     def __init__(self):
         '''
         Luokan konstruktori, joka luo uuden puun
-
-
         '''
         self.root = None
         self.focus_node = None
@@ -31,7 +26,7 @@ class SyntaxTree:
         '''
         expression = postfix[::-1]
         self.root = Node(1, expression[0])
-        self.root.max_children = get_child_number(self.root.character)
+        self.root.max_children = self.get_child_number(self.root.character)
 
         self.focus_node = self.root
         for i in range(1, len(expression)):
@@ -50,9 +45,9 @@ class SyntaxTree:
         if not node:
             return
         self.set_nullable_firstpos_and_lastpos(node.left)
-        node.nullable = get_nullable(node)
-        node.firstpos = get_firstpos(node)
-        node.lastpos = get_lastpos(node)
+        node.nullable = self.get_nullable(node)
+        node.firstpos = self.get_firstpos(node)
+        node.lastpos = self.get_lastpos(node)
         self.set_nullable_firstpos_and_lastpos(node.right)
 
     def set_followpos(self, node: Node):
@@ -65,7 +60,7 @@ class SyntaxTree:
         if not node:
             return
         self.set_followpos(node.left)
-        get_followpos(node)
+        self.get_followpos(node)
         self.set_followpos(node.right)
 
     def add(self, number: int, character: str):
@@ -77,7 +72,7 @@ class SyntaxTree:
             character (str): lisättävän solmun arvo (säännöllisen lausekkeen operandi/operaattori)
         '''
         node = Node(number, character)
-        node.max_children = get_child_number(node.character)
+        node.max_children = self.get_child_number(node.character)
         if self.focus_node.max_children == 2:
 
             if self.focus_node.right is None:
@@ -101,7 +96,7 @@ class SyntaxTree:
 
             self.focus_node = node
 
-        while self.focus_node != self.root and has_all_children(self.focus_node):
+        while self.focus_node != self.root and self.has_all_children(self.focus_node):
 
             self.focus_node = self.focus_node.parent
 
@@ -133,3 +128,139 @@ class SyntaxTree:
                 'followpos': sorted(n.number for n in node.followpos)
             }
         self.traverse(node.right, nodes)
+
+    def get_child_number(self, character: str):
+        '''
+        Metodi, joka palauttaa syntaksipuussa olevan solmun 
+        (säännöllisen lausekkeen operaattorin tai operandin) tarvittavien lasten määrän
+
+        Args:
+            character (str): solmun arvo (säännöllisen lausekkeen operandi tai operaattori)
+
+        Returns:
+            int: solmun tarvittavien lasten määrä
+        '''
+        if character in ['|', '.']:
+            return 2
+        if character == '*':
+            return 1
+        return 0
+
+
+    def has_all_children(self, node: Node):
+        '''
+        Metodi, joka kertoo, onko solmulla jo tarvittava määrä lapsia
+
+        Args:
+            node (Node): tarkasteltava solmu
+
+        Returns:
+            boolean: palauttaa True vain, jos solmulla on jo tarvittava määrä lapsia
+        '''
+        if node.character not in ['|', '.', '*']:
+            return True
+        if node.character == '*' and node.left is not None:
+            return True
+        if node.character in ['|', '.'] and node.left is not None and node.right is not None:
+            return True
+        return False
+
+    def get_nullable(self, node: Node):
+        '''
+        Metodi, joka palauttaa True mikäli solmun edustama osalauseke voi tuottaa tyhjän merkkijonon
+
+        Args:
+            node (Node): tarkasteltava solmu
+
+        '''
+        if node.character in ['€', '*']:
+            return True
+        if node.character == '.':
+            return self.get_nullable(node.left) and self.get_nullable(node.right)
+        if node.character == '|':
+            return self.get_nullable(node.left) or self.get_nullable(node.right)
+
+        return False
+
+
+    def get_firstpos(self, node: Node):
+        '''
+        Metodi, joka palauttaa ne lehtisolmut, 
+        jotka voivat olla ensimmäisiä merkkejä solmun tuottamissa merkkijonoissa.
+
+        Args:
+            node (Node): tarkasteltava solmu
+
+        Returns:
+            list:   Joukko lehtisolmuja, jotka voivat olla 
+                    ensimmäisiä merkkejä solmun tuottamissa merkkijonoissa.
+
+        '''
+        if node.character == '€':
+            return []
+        if node.character == '|':
+            left = self.get_firstpos(node.left)
+            right = self.get_firstpos(node.right)
+            return left + right
+        if node.character == '.':
+            if self.get_nullable(node.left):
+                left = self.get_firstpos(node.left)
+                right = self.get_firstpos(node.right)
+                return left + right
+            return self.get_firstpos(node.left)
+
+        if node.character == '*':
+            return self.get_firstpos(node.left)
+
+        return [node]
+
+
+    def get_lastpos(self, node: Node):
+        '''
+        Metodi, joka palauttaa ne lehtisolmut, 
+        jotka voivat olla viimeisiä merkkejä solmun tuottamissa merkkijonoissa.
+
+        Args:
+            node (Node): tarkasteltava solmu
+
+        Returns:
+            list: Joukko lehtisolmuja, 
+            jotka voivat olla viimeisiä merkkejä solmun tuottamissa merkkijonoissa.
+        '''
+        if node.character == '€':
+            return []
+        if node.character == '|':
+            left = self.get_lastpos(node.left)
+            right = self.get_lastpos(node.right)
+            return left + right
+        if node.character == '.':
+            if self.get_nullable(node.right):
+                left = self.get_lastpos(node.left)
+                right = self.get_lastpos(node.right)
+                return left + right
+            return self.get_lastpos(node.right)
+
+        if node.character == '*':
+            return self.get_lastpos(node.left)
+
+        return [node]
+
+
+    def get_followpos(self, node: Node):
+        '''
+        Metodi, joka asettaa solmun followpos arvoksi listan niistä lehtisolmuista, 
+        jotka voivat seurata kyseistä solmua lausekkeen mahdollisissa merkkijonoissa.
+
+        Args:
+            node (Node): tarkasteltava solmu
+
+        '''
+
+        if node.character == '.':
+
+            for n in node.left.lastpos:
+                n.followpos += node.right.firstpos
+
+        elif node.character == '*':
+            for n in node.lastpos:
+                n.followpos += node.firstpos
