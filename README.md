@@ -19,17 +19,24 @@
 
 [Viikkoraportti 4](./dokumentaatio/Viikkoraportti4.md)
 
+[Viikkoraportti 5](./dokumentaatio/Viikkoraportti5.md)
+
 ## Käynnistysohjeet
 
 Lataa sovellus koneellesi GitHubista ja siirry sen juurihakemistoon.
 
-Asenna riippuvuudet komennolla:
+Siirry hakemistoon UI ja asenna riippuvuudet komennolla:
 
 ```bash
-./setup.sh
+npm install
+```
+Siirry hakemistoon Compiler ja asenna riippuvuudet komennolla:
+
+```bash
+poetry install
 ```
 
-Käynnistä sovellus osoitteeseen http://localhost:5173/ komennolla:
+Siirry juurihakemistoon ja käynnistä sovellus osoitteeseen http://localhost:5173/ komennolla:
 
 ```bash
 ./start.sh
