@@ -6,7 +6,7 @@ def start(ctx):
 
 @task
 def test(ctx):
-    ctx.run("pytest src")
+    ctx.run("python -m pytest src")
 
 @task
 def coverage(ctx):
