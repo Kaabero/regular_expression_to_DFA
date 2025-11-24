@@ -19,3 +19,37 @@
 
 [Viikkoraportti 4](./dokumentaatio/Viikkoraportti4.md)
 
+## Käynnistysohjeet
+
+Lataa sovellus koneellesi GitHubista ja siirry sen juurihakemistoon.
+
+Asenna riippuvuudet komennolla:
+
+```bash
+./setup.sh
+```
+
+Käynnistä sovellus osoitteeseen http://localhost:5173/ komennolla:
+
+```bash
+./start.sh
+```
+
+Suorita testit hakemistossa Compiler komennolla:
+
+```bash
+poetry run invoke test
+```
+
+Luo testikattavuusraportti hakemistossa Compiler komennolla:
+
+```bash
+poetry run invoke coverage
+```
+
+Suorita tiedoston [.pylintrc](https://github.com/Kaabero/regular_expression_to_DFA/blob/main/Compiler/.pylintrc) määrittelemät tarkistukset hakemistossa Compiler komennolla:
+
+```bash
+poetry run invoke lint
+```
+
