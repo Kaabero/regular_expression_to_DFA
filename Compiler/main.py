@@ -31,8 +31,6 @@ def create_dfa(data: RegularExpression):
         result = d.build_dfa()
         result_json = json.loads(json.dumps(result, default=str))
         response = {"regex": data.regex, "result": result_json}
-        global regex
-        regex = result_json
         return response
 
     except ValueError as e:
