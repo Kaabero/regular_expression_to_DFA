@@ -2,7 +2,7 @@ from invoke import task
 
 @task
 def start(ctx):
-    ctx.run("uvicorn main:app --reload")
+    ctx.run("uvicorn main:app --reload --host 127.0.0.1 --port 3000")
 
 @task
 def test(ctx):

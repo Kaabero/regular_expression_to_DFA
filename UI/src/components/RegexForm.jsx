@@ -8,7 +8,7 @@ export const RegexForm = ({setResponse, setResponseRegex, setErrorMessage}) => {
         event.preventDefault()
     
         try {
-          const response = await axios.post("http://127.0.0.1:8000/api/dfa", {
+          const response = await axios.post("http://localhost:3000/api/dfa", {
             regex: regex
           })
           setResponse(response.data.result)
