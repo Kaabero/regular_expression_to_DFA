@@ -19,8 +19,6 @@ app.add_middleware(
 class RegularExpression(BaseModel):
     regex: str
 
-regex = None
-
 @app.post("/api/dfa")
 def create_dfa(data: RegularExpression):
     try:
@@ -40,9 +38,6 @@ def create_dfa(data: RegularExpression):
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@app.get("/api/regex")
-def get_regex():
-    return {"regex": regex}
 
 
 
