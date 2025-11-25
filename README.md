@@ -4,12 +4,16 @@
 
 ![GitHub Actions](https://github.com/Kaabero/regular_expression_to_DFA/workflows/CI/badge.svg)
 
+Projekti koskee Helsingin yliopiston Tietojenkäsittelytieteen kandiohjelman (TKT) aineopintojen harjoitustyötä (Algoritmit ja tekoäly). 
+
 ## Dokumentaatio
 [Määrittelydokumentti](./dokumentaatio/M%C3%A4%C3%A4rittelydokumentti.md)
 
 [Testausdokumentti](./dokumentaatio/Testausdokumentti.md)
 
 [Toteutusdokumentti](./dokumentaatio/Toteutusdokumentti.md)
+
+## Viikkoraportit
 
 [Viikkoraportti 1](./dokumentaatio/Viikkoraportti1.md)
 
@@ -59,4 +63,8 @@ Suorita tiedoston [.pylintrc](https://github.com/Kaabero/regular_expression_to_D
 ```bash
 poetry run invoke lint
 ```
+
+## Käyttö
+
+Ohjelmalle syötetään säännöllinen lauseke, josta ohjelma rakentaa ja näyttää käyttäjälle samat merkkijonot hyväksyvän deterministisen äärellisen automaatin (DFA). Säännöllisen lausekkeen sallitut operaatiot ovat yhdiste (|), konkatenaatio (jätetään merkitsemättä) sekä tähti (*). Aakkosto voi sisältää isoja ja pieniä kirjaimia (a-z ja A-Z) sekä numeroita. Lisäksi lauseke voi sisältää tyhjä merkin (€) sekä sulkumerkit. Sulkeita on käytettävä aina, kun * ja | -operaatioihin liittyvien operandien pituus ylittää yhden merkin. 
 
