@@ -50,15 +50,20 @@ class DFA:
 
         transitions = []
         nodes = set()
+        selfconnecting = {}
         for (from_positions, character), to_positions in self.tran.items():
             nodes.add((states[tuple(from_positions)], states[tuple(to_positions)]))
 
             if states[tuple(from_positions)] == states[tuple(to_positions)]:
+                if (states[tuple(from_positions)], states[tuple(to_positions)]) not in selfconnecting:
+                    selfconnecting[(states[tuple(from_positions)], states[tuple(to_positions)])]=[]
+                selfconnecting[(states[tuple(from_positions)], states[tuple(to_positions)])].append(character)
                 transitions.append({
                     "from": states[tuple(from_positions)],
                     "character": character,
                     "to": states[tuple(to_positions)],
-                    "type": 'selfconnecting'
+                    "type": 'selfconnecting',
+                    "labels": []
                 })
             elif  (states[tuple(to_positions)], states[tuple(from_positions)]) in nodes:
                 transitions.append({
@@ -74,7 +79,10 @@ class DFA:
                     "to": states[tuple(to_positions)],
                     "type": 'default'
         })
-
+                
+        for transition in transitions:
+            if transition['type'] == 'selfconnecting':
+                transition['labels'] = selfconnecting[(transition['from'], transition['to'])]
 
         result = {
             "states": self.states,

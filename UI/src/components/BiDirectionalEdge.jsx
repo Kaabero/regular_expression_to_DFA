@@ -29,7 +29,7 @@ export const BiDirectionalEdge = (props) => {
 
 
   if (isBiDirectionEdge) {
-    const offset = sourceX < targetX ? 25 : -25
+    const offset = sourceX < targetX ? 35 : -35
     path = getSpecialPath(edgePathParams, offset)
     labelY = labelY + offset / 2
   } else {

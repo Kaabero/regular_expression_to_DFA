@@ -10,7 +10,6 @@ const edgeTypes = {
 }
 
 export const DfaChart = ({responseRegex, response}) => {
-
   
 
     const [nodes, setNodes] = useState([])
@@ -37,7 +36,7 @@ export const DfaChart = ({responseRegex, response}) => {
                 id: index.toString(),
                 source: transition.from.toString(),
                 target: transition.to.toString(),
-                label: transition.character,
+                label: transition.type == 'selfconnecting' ? transition.labels.join(', ') : transition.character,
                 markerEnd: { type: MarkerType.Arrow },
                 type: transition.type
               
