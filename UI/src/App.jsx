@@ -3,6 +3,7 @@ import './App.css'
 import { Notification } from './components/Notification'
 import { RegexForm } from './components/RegexForm'
 import { Dfa } from './components/Dfa'
+import { DfaChart } from './components/DfaChart'
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <RegexForm setResponse={setResponse} setResponseRegex={setResponseRegex} setErrorMessage={setErrorMessage}/>
         {response && (
         <div>
+          <DfaChart response={response}/>
           <Dfa responseRegex={responseRegex} response={response} setResponse={setResponse}/>
         </div>
         )}

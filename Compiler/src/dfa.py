@@ -49,11 +49,30 @@ class DFA:
         self.accepting_states = [states[tuple(s)] for s in self.accepting_states]
 
         transitions = []
+        nodes = set()
         for (from_positions, character), to_positions in self.tran.items():
-            transitions.append({
-                "from": states[tuple(from_positions)],
-                "character": character,
-                "to": states[tuple(to_positions)]
+            nodes.add((states[tuple(from_positions)], states[tuple(to_positions)]))
+
+            if states[tuple(from_positions)] == states[tuple(to_positions)]:
+                transitions.append({
+                    "from": states[tuple(from_positions)],
+                    "character": character,
+                    "to": states[tuple(to_positions)],
+                    "type": 'selfconnecting'
+                })
+            elif  (states[tuple(to_positions)], states[tuple(from_positions)]) in nodes:
+                transitions.append({
+                    "from": states[tuple(from_positions)],
+                    "character": character,
+                    "to": states[tuple(to_positions)],
+                    "type": 'bidirectional'
+                })
+            else:
+                transitions.append({
+                    "from": states[tuple(from_positions)],
+                    "character": character,
+                    "to": states[tuple(to_positions)],
+                    "type": 'default'
         })
 
 
