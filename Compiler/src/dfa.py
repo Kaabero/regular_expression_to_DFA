@@ -34,6 +34,63 @@ class DFA:
             elif syntax_tree[node]['character'] =='#':
                 self.accepting_position=node
 
+    def get_transitions(self, states: dict):
+        '''
+        Metodi, joka palauttaa DFA:n siirtymät käyttöliittymän tarvitsemassa muodossa
+        
+        '''
+        trans = []
+        nodes = set()
+        selfconnecting = {}
+        for (from_pos, character), to_pos in self.tran.items():
+            nodes.add((states[tuple(from_pos)], states[tuple(to_pos)]))
+
+            if states[tuple(from_pos)] == states[tuple(to_pos)]:
+                if (states[tuple(from_pos)], states[tuple(to_pos)]) not in selfconnecting:
+                    selfconnecting[(states[tuple(from_pos)], states[tuple(to_pos)])]=[]
+                selfconnecting[(states[tuple(from_pos)], states[tuple(to_pos)])].append(character)
+                trans.append({
+                    "from": states[tuple(from_pos)],
+                    "character": character,
+                    "to": states[tuple(to_pos)],
+                    "type": 'selfconnecting',
+                    "labels": []
+                })
+            elif  (states[tuple(to_pos)], states[tuple(from_pos)]) in nodes:
+                trans.append({
+                    "from": states[tuple(from_pos)],
+                    "character": character,
+                    "to": states[tuple(to_pos)],
+                    "type": 'bidirectional'
+                })
+            else:
+                trans.append({
+                    "from": states[tuple(from_pos)],
+                    "character": character,
+                    "to": states[tuple(to_pos)],
+                    "type": 'default'
+        })
+        for i in range(len(trans)):
+            if trans[i]['type'] == 'selfconnecting':
+                trans[i]['labels'] = selfconnecting[(trans[i]['from'], trans[i]['to'])]
+            else:
+                for j in range(i+1, len(trans)):
+                    if trans[i]['from'] ==trans[j]['from'] and trans[i]['to'] ==trans[j]['to']:
+                        if 'labels' not in trans[i]:
+                            trans[i]['labels']=[]
+                        if 'labels' not in trans[j]:
+                            trans[j]['labels']=[]
+                        if trans[i]['character'] not in trans[i]['labels']:
+                            trans[i]['labels'].append(trans[i]['character'])
+                        if trans[j]['character'] not in trans[i]['labels']:
+                            trans[i]['labels'].append(trans[j]['character'])
+                        if trans[i]['character'] not in trans[j]['labels']:
+                            trans[j]['labels'].append(trans[i]['character'])
+                        if trans[j]['character'] not in trans[j]['labels']:
+                            trans[j]['labels'].append(trans[j]['character'])
+        return trans
+
+
     def build_dfa(self):
         '''
         Metodi, joka rakentaa DFA:n ja palauttaa sen sanakirjamuodossa
@@ -48,63 +105,12 @@ class DFA:
         self.start_state = states[tuple(self.start_state)]
         self.accepting_states = [states[tuple(s)] for s in self.accepting_states]
 
-        transitions = []
-        nodes = set()
-        selfconnecting = {}
-        for (from_positions, character), to_positions in self.tran.items():
-            nodes.add((states[tuple(from_positions)], states[tuple(to_positions)]))
-
-            if states[tuple(from_positions)] == states[tuple(to_positions)]:
-                if (states[tuple(from_positions)], states[tuple(to_positions)]) not in selfconnecting:
-                    selfconnecting[(states[tuple(from_positions)], states[tuple(to_positions)])]=[]
-                selfconnecting[(states[tuple(from_positions)], states[tuple(to_positions)])].append(character)
-                transitions.append({
-                    "from": states[tuple(from_positions)],
-                    "character": character,
-                    "to": states[tuple(to_positions)],
-                    "type": 'selfconnecting',
-                    "labels": []
-                })
-            elif  (states[tuple(to_positions)], states[tuple(from_positions)]) in nodes:
-                transitions.append({
-                    "from": states[tuple(from_positions)],
-                    "character": character,
-                    "to": states[tuple(to_positions)],
-                    "type": 'bidirectional'
-                })
-            else:
-                transitions.append({
-                    "from": states[tuple(from_positions)],
-                    "character": character,
-                    "to": states[tuple(to_positions)],
-                    "type": 'default'
-        })
-        for i in range(len(transitions)):
-            if transitions[i]['type'] == 'selfconnecting':
-                transitions[i]['labels'] = selfconnecting[(transitions[i]['from'], transitions[i]['to'])]
-            else:
-                for j in range(i+1, len(transitions)):
-                    if transitions[i]['from'] ==transitions[j]['from']:
-                        if transitions[i]['to'] ==transitions[j]['to']:
-                            if 'labels' not in transitions[i]:
-                                transitions[i]['labels']=[]
-                            if 'labels' not in transitions[j]:
-                                transitions[j]['labels']=[]
-                            if transitions[i]['character'] not in transitions[i]['labels']:     
-                                transitions[i]['labels'].append(transitions[i]['character'])
-                            if transitions[j]['character'] not in transitions[i]['labels']:
-                                transitions[i]['labels'].append(transitions[j]['character'])
-                            if transitions[i]['character'] not in transitions[j]['labels']:
-                                transitions[j]['labels'].append(transitions[i]['character'])
-                            if transitions[j]['character'] not in transitions[j]['labels']:
-                                transitions[j]['labels'].append(transitions[j]['character'])           
-
         result = {
             "states": self.states,
             "alphabet": self.alphabet,
             "q_0": self.start_state,
             "accepting_states": self.accepting_states,
-            "transitions": transitions
+            "transitions": self.get_transitions(states)
         }
         return result
 
