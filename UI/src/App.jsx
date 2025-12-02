@@ -13,11 +13,14 @@ function App() {
   const [errorMessage, setErrorMessage] = useState('')
   const [showChart, setShowChart] = useState(false)
 
-  return (
+    return (
     <>
       <Notification message={errorMessage} />
-      <h2>Säännöllisestä lausekkeesta DFA:ksi</h2>
-      <div>
+      {!response && (
+        <h2 style={{ position: 'fixed', top: '100px',left: 160}}>Säännöllisestä lausekkeesta DFA:ksi</h2>
+      )}   
+      <div style={{position: "absolute",top: "220px",left: -100, width: "100%", display: "flex"}}>
+        <div style={{width: "900px", maxWidth: "95%", textAlign: "center"}}>
         {!response ? (
             <RegexForm setResponse={setResponse} setResponseRegex={setResponseRegex} setErrorMessage={setErrorMessage}/>
         ) : (
@@ -28,16 +31,16 @@ function App() {
               <button onClick={() => setResponse(null)}>Aloita alusta</button>
               <DfaChart responseRegex={responseRegex} response={response}/>
               </>
-            ) :
+            ) : (
             <>
             <button onClick={() => setShowChart(true)}>Näytä kuva</button>
             <button onClick={() => setResponse(null)}>Aloita alusta</button>
             <Dfa responseRegex={responseRegex} response={response}/>
-          
             </>
-            }
+            )}
           </div>
         )}
+        </div>
       </div>
     </>
   )

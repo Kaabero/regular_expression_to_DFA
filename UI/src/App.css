@@ -78,10 +78,10 @@ input {
 
 .notification {
   position: fixed;
-  top: 0px;
-  left: 50%;
+  top: 10px;
+  left: 45%;
   transform: translateX(-80%);
-  padding: 12px 24px;
+  padding: 1px 24px;
   border-radius: 8px;
   background-color: #f70606;
   color: white;

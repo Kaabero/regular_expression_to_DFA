@@ -6,8 +6,7 @@ export const Dfa = ({responseRegex, response}) => {
 
     return (
         <div>
-            <h3>Säännöllisen lausekkeen DFA:</h3>
-            <strong>Lauseke: </strong>{responseRegex} <br/>
+            <h4>Säännöllisen lausekkeen "{responseRegex}" DFA:</h4>
             <strong>Tilat: </strong>{'{'}{states}{'}'}
             <br/>
             <strong>Aakkosto: </strong>{alphabet.length > 0 ? <>{'{'}{alphabet}{'}'}</> : <>Tyhjä aakkosto</>}
