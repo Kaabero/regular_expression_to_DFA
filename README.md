@@ -43,7 +43,7 @@ poetry install
 Siirry juurihakemistoon ja käynnistä sovellus osoitteeseen http://localhost:5173/ komennolla:
 
 ```bash
-./start.sh
+bash ./start.sh
 ```
 
 Suorita testit hakemistossa Compiler komennolla:
