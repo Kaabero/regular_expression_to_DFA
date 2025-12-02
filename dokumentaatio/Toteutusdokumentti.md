@@ -21,6 +21,7 @@ Ohjelma voisi tukea kattavammin erilaisia operaatioita tähden, konkatenaation j
 - Käytin ChatGPT:tä suomentamaan minulle joitain lähteissä olevia kohtia
 - Käytin ChatGPT:tä ehdottamaan, miten kommunikointi Pythonilla tehdyn backendin ja Reactilla+Javascriptillä tehdyn frontendin välillä kannattaa toteuttaa.
 - Käytin ChatGPT:tä apuna joissain CSS-ongelmissa
+- Käytin ChatGPT:tä apuna joissain ReactFlow-ongelmissa
 
 ## Käyteyt lähteet 
 
@@ -28,3 +29,5 @@ Ohjelma voisi tukea kattavammin erilaisia operaatioita tähden, konkatenaation j
 - [Building a syntax tree from scratch using André’s Method (André Ovalle)](https://dev.to/andro095/building-a-syntax-tree-from-scratch-using-andres-method-5a54)
 - [GeeksForGeeks: Regular Expression to DFA](https://www.geeksforgeeks.org/compiler-design/regular-expression-to-dfa/)
 - [Stackoverflow: Time Complexity DFA construction from regex directly](https://stackoverflow.com/questions/21854074/time-complexity-dfa-construction-from-regex-directly)
+- [ReactFlow](https://reactflow.dev/learn)
+- [ReactFlow Custom Edges](https://reactflow.dev/examples/edges/custom-edges)
