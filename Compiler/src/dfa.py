@@ -79,10 +79,25 @@ class DFA:
                     "to": states[tuple(to_positions)],
                     "type": 'default'
         })
-                
-        for transition in transitions:
-            if transition['type'] == 'selfconnecting':
-                transition['labels'] = selfconnecting[(transition['from'], transition['to'])]
+        for i in range(len(transitions)):
+            if transitions[i]['type'] == 'selfconnecting':
+                transitions[i]['labels'] = selfconnecting[(transitions[i]['from'], transitions[i]['to'])]
+            else:
+                for j in range(i+1, len(transitions)):
+                    if transitions[i]['from'] ==transitions[j]['from']:
+                        if transitions[i]['to'] ==transitions[j]['to']:
+                            if 'labels' not in transitions[i]:
+                                transitions[i]['labels']=[]
+                            if 'labels' not in transitions[j]:
+                                transitions[j]['labels']=[]
+                            if transitions[i]['character'] not in transitions[i]['labels']:     
+                                transitions[i]['labels'].append(transitions[i]['character'])
+                            if transitions[j]['character'] not in transitions[i]['labels']:
+                                transitions[i]['labels'].append(transitions[j]['character'])
+                            if transitions[i]['character'] not in transitions[j]['labels']:
+                                transitions[j]['labels'].append(transitions[i]['character'])
+                            if transitions[j]['character'] not in transitions[j]['labels']:
+                                transitions[j]['labels'].append(transitions[j]['character'])           
 
         result = {
             "states": self.states,

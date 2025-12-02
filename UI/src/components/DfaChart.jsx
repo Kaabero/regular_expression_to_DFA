@@ -36,7 +36,7 @@ export const DfaChart = ({responseRegex, response}) => {
                 id: index.toString(),
                 source: transition.from.toString(),
                 target: transition.to.toString(),
-                label: transition.type == 'selfconnecting' ? transition.labels.join(', ') : transition.character,
+                label: transition.labels ? transition.labels.join(', ') : transition.character,
                 markerEnd: { type: MarkerType.Arrow },
                 type: transition.type
               
