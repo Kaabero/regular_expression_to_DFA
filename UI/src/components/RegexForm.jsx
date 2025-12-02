@@ -61,7 +61,7 @@ export const RegexForm = ({setResponse, setResponseRegex, setErrorMessage}) => {
             </span>
           </div>
         </label>
-        <div className="button">
+        <div>
           <button type="submit">Luo DFA</button>
         </div>
         </form>

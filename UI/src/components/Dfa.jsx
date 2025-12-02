@@ -1,4 +1,4 @@
-export const Dfa = ({responseRegex, response, setResponse}) => {
+export const Dfa = ({responseRegex, response}) => {
 
     const states = response ? response.states.join(', ') : ''
     const alphabet = response ? response.alphabet.join(', ') : ''
@@ -25,9 +25,6 @@ export const Dfa = ({responseRegex, response, setResponse}) => {
             
             <strong>Alkutila: </strong>{response.q_0} <br/>
             <strong>Hyväksyvät tilat: </strong>{'{'}{accepting_states}{'}'}
-            <div className="button">
-                <button onClick={() => setResponse(null)}>Tyhjennä</button>
-            </div>
         </div>
     )
 }

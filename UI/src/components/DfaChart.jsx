@@ -8,27 +8,8 @@ const edgeTypes = {
     selfconnecting: SelfConnectingEdge,
     bidirectional: BiDirectionalEdge
 }
-/*
-const initialNodes = [ 
-    { id: '1', position: { x: 0, y: 0 }, data: { label: 'Aloitustila 1' }, style: {border: "1px solid black", width: 80}, sourcePosition: Position.Right, targetPosition: Position.Left }, 
-    { id: '2', position: { x: 120, y: 80 }, data: { label: '2' }, style: {border: "1px solid black", width: 80 },sourcePosition: Position.Right, targetPosition: Position.Left, }, 
-    { id: '3', position: { x: 240, y: 160 }, data: { label: '3' }, style: {border: "1px solid black", width: 80}, sourcePosition: Position.Right, targetPosition: Position.Left, }, 
-    { id: '4', position: { x: 360, y: 240 }, data: { label: '4' }, style: {border: "3px solid black", backgroundColor: 'lightgreen', width: 80}, sourcePosition: Position.Right, targetPosition: Position.Left } 
-]
 
-const initialEdges = [
-    { id: '0', source: '1', target: '2', label: 'a', markerEnd: { type: MarkerType.Arrow }, type: 'default' },
-    { id: '1', source: '2', target: '2', label: 'a', markerEnd: { type: MarkerType.Arrow }, type: 'selfconnecting' },
-    { id: '2', source: '2', target: '3', label: 'b', markerEnd: { type: MarkerType.Arrow }, type: 'bidirectional'},
-    { id: '3', source: '3', target: '2', label: 'a', markerEnd: { type: MarkerType.Arrow }, type: 'bidirectional'},
-    { id: '4', source: '3', target: '4', label: 'b', markerEnd: { type: MarkerType.Arrow }, type: 'default' },
-    { id: '5', source: '4', target: '2', label: 'a', markerEnd: { type: MarkerType.Arrow }, type: 'default' },
-    { id: '6', source: '4', target: '1', label: 'b', markerEnd: { type: MarkerType.Arrow }, type: 'default' },
-    { id: '7', source: '1', target: '1', label: 'b', markerEnd: { type: MarkerType.Arrow }, type: 'selfconnecting' },
-]
-
-*/
-export const DfaChart = ({response}) => {
+export const DfaChart = ({responseRegex, response}) => {
 
   
 
@@ -79,16 +60,19 @@ export const DfaChart = ({response}) => {
     )
     
     return (
-        <div style={{ width: '100vw', height: '100vh' }}>
-        <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            edgeTypes={edgeTypes}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            fitView
-        />
-        </div>
+        <>
+            <h3>Säännöllisen lausekkeen "{responseRegex}" DFA:</h3>
+            <div style={{ width: '100vw', height: '100vh' }}>
+            <ReactFlow
+                nodes={nodes}
+                edges={edges}
+                edgeTypes={edgeTypes}
+                onNodesChange={onNodesChange}
+                onEdgesChange={onEdgesChange}
+                onConnect={onConnect}
+                fitView
+            />
+            </div>
+        </>
     )
 }
