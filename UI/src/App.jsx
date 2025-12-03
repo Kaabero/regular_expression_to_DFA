@@ -19,7 +19,7 @@ function App() {
       {!response && (
         <h2 style={{ position: 'fixed', top: '100px',left: 160}}>Säännöllisestä lausekkeesta DFA:ksi</h2>
       )}   
-      <div style={{position: "absolute",top: "220px",left: -100, width: "100%", display: "flex"}}>
+      <div style={{position: "absolute",top: "220px",left: -50, width: "100%", display: "flex"}}>
         <div style={{width: "900px", maxWidth: "95%", textAlign: "center"}}>
         {!response ? (
             <RegexForm setResponse={setResponse} setResponseRegex={setResponseRegex} setErrorMessage={setErrorMessage}/>

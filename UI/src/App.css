@@ -79,7 +79,7 @@ input {
 .notification {
   position: fixed;
   top: 10px;
-  left: 45%;
+  left: 60%;
   transform: translateX(-80%);
   padding: 1px 24px;
   border-radius: 8px;
