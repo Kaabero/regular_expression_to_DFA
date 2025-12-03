@@ -45,7 +45,7 @@ export const BiDirectionalEdge = (props) => {
       <BaseEdge path={path} markerEnd={markerEnd} />
         <EdgeLabelRenderer>
           <div style={{ position: 'absolute', left: `${labelX}px`, top: `${labelY}px`, transform: `translate(-50%, -50%)`, whiteSpace: 'nowrap'}}>
-            <div style={{ padding: '2px 2px', backgroundColor: 'white', fontSize: 10 }}>
+            <div className="edge" style={{ padding: '2px 2px', backgroundColor: 'white', fontSize: 10 }}>
               {label}
             </div>
           </div>

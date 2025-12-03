@@ -49,7 +49,7 @@ export const RegexForm = ({setResponse, setResponseRegex, setErrorMessage}) => {
             />
             <span className="info-icon">
               ?
-              <span className="info-text">
+              <span className="info-text" title='Info'>
                 Sallitut operaatiot: <br/>
                 - yhdiste | <br/>
                 - konkatenaatio (jätetään merkitsemättä) <br/> 

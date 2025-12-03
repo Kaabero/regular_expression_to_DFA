@@ -20,7 +20,7 @@ export const SelfConnectingEdge = (props) => {
       <BaseEdge path={edgePath} markerEnd={markerEnd}/>
       <EdgeLabelRenderer>
           <div style={{ position: 'absolute', left: `${labelX}px`, top: `${labelY}px`}}>
-              <div style={{ padding: '2px 2px', backgroundColor: 'white', fontSize: 10 }}>
+              <div  className="edge" style={{ padding: '2px 2px', backgroundColor: 'white', fontSize: 10 }}>
                 {label}
               </div>
             </div>

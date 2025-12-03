@@ -13,7 +13,15 @@ function App() {
   const [errorMessage, setErrorMessage] = useState('')
   const [showChart, setShowChart] = useState(false)
 
-    return (
+  const handleClearClick = () => {
+    setShowChart(false)
+    setResponse(null)
+  }
+
+
+
+
+  return (
     <>
       <Notification message={errorMessage} />
       {!response && (
@@ -28,13 +36,13 @@ function App() {
             {showChart ? (
               <>
               <button onClick={() => setShowChart(false)}>Näytä tiedot</button>
-              <button onClick={() => setResponse(null)}>Aloita alusta</button>
+              <button onClick={handleClearClick}>Aloita alusta</button>
               <DfaChart responseRegex={responseRegex} response={response}/>
               </>
             ) : (
             <>
             <button onClick={() => setShowChart(true)}>Näytä kuva</button>
-            <button onClick={() => setResponse(null)}>Aloita alusta</button>
+            <button onClick={handleClearClick}>Aloita alusta</button>
             <Dfa responseRegex={responseRegex} response={response}/>
             </>
             )}
