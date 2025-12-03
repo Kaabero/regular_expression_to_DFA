@@ -23,7 +23,7 @@ Automaattisia testejä on 31 kappaletta. Testien haarautumakattavuus on 99%.
 
 Testikattavuusraportti ajettu 3.12.2025
 
-### Testitapaukset
+### Testitapaukset (yksikkötestaus)
 
 - Testattu, että ohjelma nostaa virheen (ValueError) käyttäjän annettua syötteen seuraavissa tapauksissa:
     - Kielletty symboli
@@ -56,14 +56,18 @@ Testikattavuusraportti ajettu 3.12.2025
     - Kun syötteenä on säännöllinen lauseke, joka hyväksyy ne aakkoston {0, 1, 2} merkkijonot, jotka eivät ala merkillä 0 ja joissa on pariton määrä merkkejä 1.
     - Kun DFA:ssa on päällekkäisiä ja itseensä palaavia siirtymiä.
     
-
-
    
 
 ## Käyttöliittymän testaus
 
-Käyttöliittymän toiminnot testataan myöhemmin mahdollisesti e2e-testien avulla.
+Käyttöliittymän toimintojen testauksessa on käytetty end to end -testausta Playwright -kirjastolla. Testauksessa on pyritty huomioimaan erilaiset virheellisten syötteiden tapaukset ja varmistamaan oikeanmuotoiset virheilmoitukset. Lisäksi on pyritty varmistamaan, että oikeanmuotoisen syötteen jälkeen käyttäjälle näytetään oletuksena DFA:n tiedot (tilat, aakkosto, siirtymät, alkutila ja hyväksyvät tilat) tekstimuodossa. Kaaviokuvan osalta on varmistettu, että käyttäjä voi siirtyä tarkastelemaan DFA:n kaaviokuvaa ja että kuvan solmut ja kaaret renderöityvät käyttäjälle. Lisäksi on pyritty varmistamaan, että päällekkäisten kaarien tapauksessa molempien kaarien symbolit näkyvät oikein ja että molempien kahden solmun välillä edestakaisin menevien kaarien symbolit renderöityvät.
 
+
+End to end -testit voi suorittaa sovelluksen ollessa käynnissä UI hakemistossa komennolla:
+
+```bash
+npm run test
+```
 
 
 
