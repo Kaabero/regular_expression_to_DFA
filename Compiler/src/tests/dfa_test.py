@@ -136,32 +136,20 @@ class TestDFA(unittest.TestCase):
             assert {'from': 3, 'character': '0', 'to': 2, 'type': 'bidirectional'} in dfa['transitions']
             assert {'from': 3, 'character': '1', 'to': 4, 'type': 'default'} in dfa['transitions']
     
-    def test_builds_dfa_for_overlapping_transitions(self):
-            infix = format_input_for_syntax_tree('fafaf')
+    def test_builds_dfa_with_overlapping_and_selfconnecting_transitions(self):
+            infix = format_input_for_syntax_tree('fafafhdgdhdg')
             s = SyntaxTree()
             s.build_tree(get_postfix(infix))
             syntax_tree = s.get_tree()
             d = DFA(syntax_tree, sorted(n.number for n in s.root.firstpos))
             dfa = d.build_dfa()
 
-            assert dfa['states'] == [1,2,3,4,5,6,7]
-            assert dfa['alphabet'] == ['f','a']
+            assert dfa['states'] == [1,2,3,4,5,6,7,8,9, 10, 11, 12, 13, 14]
+            assert dfa['alphabet'] == ['f','a', 'h', 'd', 'g']
             assert dfa['q_0'] == 1
-            assert dfa['accepting_states'] == [7]
-            assert {'from': 1, 'character': 'f', 'to': 2, 'type': 'default'} in dfa['transitions']
-            assert {'from': 2, 'character': 'f', 'to': 3, 'type': 'default'} in dfa['transitions']
-            assert {'from': 3, 'character': 'f', 'to': 3, 'type': 'selfconnecting', 'labels': ['f', 'a']} in dfa['transitions']
-            assert {'from': 3, 'character': 'a', 'to': 3, 'type': 'selfconnecting', 'labels': ['f', 'a']} in dfa['transitions']
-            assert {'from': 2, 'character': 'a', 'to': 4, 'type': 'default'} in dfa['transitions']
-            assert {'from': 4, 'character': 'f', 'to': 5, 'type': 'default'} in dfa['transitions']
-            assert {'from': 5, 'character': 'f', 'to': 3, 'type': 'default'} in dfa['transitions']
-            assert {'from': 5, 'character': 'a', 'to': 6, 'type': 'default'} in dfa['transitions']
-            assert {'from': 6, 'character': 'f', 'to': 7, 'type': 'default'} in dfa['transitions']
-            assert {'from': 7, 'character': 'f', 'to': 3, 'type': 'default', 'labels': ['f', 'a']} in dfa['transitions']
-            assert {'from': 7, 'character': 'a', 'to': 3, 'type': 'default', 'labels': ['f', 'a']} in dfa['transitions']
-            assert {'from': 6, 'character': 'a', 'to': 3, 'type': 'default'} in dfa['transitions']
-            assert {'from': 4, 'character': 'a', 'to': 3, 'type': 'default'} in dfa['transitions']
-            assert {'from': 1, 'character': 'a', 'to': 3, 'type': 'default'} in dfa['transitions']
+            assert dfa['accepting_states'] == [14]
+            assert {'from': 14, 'character': 'f', 'to': 3, 'type': 'default', 'labels': ['f', 'a', 'h', 'd', 'g']} in dfa['transitions']
+            assert {'from': 3, 'character': 'f', 'to': 3, 'type': 'selfconnecting', 'labels': ['f', 'a', 'h', 'd', 'g']} in dfa['transitions']
 
 
 

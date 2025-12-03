@@ -6,7 +6,7 @@
 Yksikkötestauksessa käytetään Unittest-kehystä. Yksikkötestit suoritetaan Compiler/src hakemiston koodille. Käyttölittymään liittyvä koodi jätetään yksikkötestauksen ulkopuolelle, koska se ei ole olennainen varsinaisen ohjelmalogiikan kannalta.
 
 
-Automaattisilla testeillä testataan tässä vaiheessa (18.11.2025) eritysesti SyntaxTree-luokan toimintaa oikeanmuotoisilla syötteillä sekä DFA-luokan toimintaa erilaisilla säännöllisillä lausekkeilla. Näissä testeissä on pyritty erilaisia operaatioita ja sulkulausekkeita sisältävin syöttein varmistamaan, että ohjelma rakentaa syntaksipuun sekä dfa:n oikein. Lisäksi tässä vaiheessa testataan, että käyttäjän antaman syötteen validointi sekä sen muuttaminen infix-muotoon toimii oikein. Testauksessa käytetyt syötteet on pyritty valitsemaan siten, että erilaiset väärää muotoa olevat syötteet ovat edustettuina mahdollisimman kattavasti.
+Automaattisilla testeillä testataan eritysesti SyntaxTree-luokan toimintaa oikeanmuotoisilla syötteillä sekä DFA-luokan toimintaa erilaisilla säännöllisillä lausekkeilla. Näissä testeissä on pyritty erilaisia operaatioita ja sulkulausekkeita sisältävin syöttein varmistamaan, että ohjelma rakentaa syntaksipuun sekä DFA:n oikein. Lisäksi testataan, että käyttäjän antaman syötteen validointi sekä sen muuttaminen infix-muotoon toimii oikein. Testauksessa käytetyt syötteet on pyritty valitsemaan siten, että erilaiset väärää muotoa olevat syötteet ovat edustettuina mahdollisimman kattavasti.
 
 Testit voidaan ajaa testikattavuusraportin kera Compiler kansiossa komennolla
 
@@ -17,11 +17,11 @@ poetry run invoke coverage
 
 ### Testikattavuusraportti
 
-Automaattisia testejä on 30 kappaletta. Testien haarautumakattavuus on 99%.
+Automaattisia testejä on 31 kappaletta. Testien haarautumakattavuus on 99%.
 
 ![Testikattavuusraportti](https://github.com/Kaabero/regular_expression_to_DFA/blob/main/dokumentaatio/kuvat/Testikattavuusraportti.png)
 
-Testikattavuusraportti ajettu 18.11.2025
+Testikattavuusraportti ajettu 3.12.2025
 
 ### Testitapaukset
 
@@ -54,6 +54,7 @@ Testikattavuusraportti ajettu 18.11.2025
     - Kun syötteenä on säännöllinen lauseke, joka hyväksyy ne aakkoston {0, 1} parillisen mittaiset merkkijonot jotka päättyvät merkkiin 0 ja parittoman mittaiset merkkijonot, jotka päättyvät merkkiin 1.
     - Kun syötteenä on säännöllinen lauseke, joka hyväksyy ne aakkoston {a, b, c} merkkijonot, joissa ei esiinny osamerkkijonoa ab eikä ba.
     - Kun syötteenä on säännöllinen lauseke, joka hyväksyy ne aakkoston {0, 1, 2} merkkijonot, jotka eivät ala merkillä 0 ja joissa on pariton määrä merkkejä 1.
+    - Kun DFA:ssa on päällekkäisiä ja itseensä palaavia siirtymiä.
     
 
 
