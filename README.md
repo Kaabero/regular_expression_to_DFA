@@ -25,6 +25,8 @@ Projekti koskee Helsingin yliopiston Tietojenkäsittelytieteen kandiohjelman (TK
 
 [Viikkoraportti 5](./dokumentaatio/Viikkoraportti5.md)
 
+[Viikkoraportti 6](./dokumentaatio/Viikkoraportti6.md)
+
 ## Käynnistysohjeet
 
 Lataa sovellus koneellesi GitHubista ja siirry sen juurihakemistoon.
@@ -46,16 +48,22 @@ Siirry juurihakemistoon ja käynnistä sovellus osoitteeseen http://localhost:51
 bash ./start.sh
 ```
 
-Suorita testit hakemistossa Compiler komennolla:
+Suorita yksikkötestit hakemistossa Compiler komennolla:
 
 ```bash
 poetry run invoke test
 ```
 
-Luo testikattavuusraportti hakemistossa Compiler komennolla:
+Luo yksikkötestien testikattavuusraportti hakemistossa Compiler komennolla:
 
 ```bash
 poetry run invoke coverage
+```
+
+Sovelluksen ollessa käynnissä, suorita end to end -testit UI hakemistossa komennolla:
+
+```bash
+npm run test
 ```
 
 Suorita tiedoston [.pylintrc](https://github.com/Kaabero/regular_expression_to_DFA/blob/main/Compiler/.pylintrc) määrittelemät tarkistukset hakemistossa Compiler komennolla:
@@ -66,5 +74,5 @@ poetry run invoke lint
 
 ## Käyttö
 
-Ohjelmalle syötetään säännöllinen lauseke, josta ohjelma rakentaa ja näyttää käyttäjälle samat merkkijonot hyväksyvän deterministisen äärellisen automaatin (DFA). Säännöllisen lausekkeen sallitut operaatiot ovat yhdiste (|), konkatenaatio (jätetään merkitsemättä) sekä tähti (*). Aakkosto voi sisältää isoja ja pieniä kirjaimia (a-z ja A-Z) sekä numeroita. Lisäksi lauseke voi sisältää tyhjä merkin (€) sekä sulkumerkit. Sulkeita on käytettävä aina, kun * ja | -operaatioihin liittyvien operandien pituus ylittää yhden merkin. 
+Ohjelmalle syötetään säännöllinen lauseke, josta ohjelma rakentaa ja näyttää käyttäjälle samat merkkijonot hyväksyvän deterministisen äärellisen automaatin (DFA). Säännöllisen lausekkeen sallitut operaatiot ovat yhdiste (|), konkatenaatio (jätetään merkitsemättä) sekä tähti (*). Aakkosto voi sisältää isoja ja pieniä kirjaimia (a-z ja A-Z) sekä numeroita. Lisäksi lauseke voi sisältää tyhjä merkin (€) sekä sulkumerkit. Sulkeita on käytettävä aina, kun * ja | -operaatioihin liittyvien operandien pituus ylittää yhden merkin. Säännöllisen lausekkeen syötön jälkeen sitä vastaavan DFA:n tietoja voi tarkastella joko tekstimuodossa tai kuvakaaviona valitsemalla haluttu esitystapa. Kaaviota on mahdollista tutkia tarkemmin lähentämällä, loitontamalla tai siirtämällä kaaviota sekä siirtelemällä tilojen sijainteja. Hyväksyvät tilat on väritetty vihreiksi ja aloitustila on merkitty tekstillä "Aloitustila".
 
