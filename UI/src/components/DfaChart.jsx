@@ -31,19 +31,27 @@ export const DfaChart = ({responseRegex, response}) => {
     }, [response])
 
     useEffect(() => {
-        setEdges(response.transitions.map((transition, index) => ({
+        const bidirectionals = new Set(response.transitions.filter(t => t.type === 'bidirectional' && t.labels).map(t => `${t.from}-${t.to}-${t.labels}`))
 
+        const filteredTransitions = response.transitions.filter(t => {
+            if (t.type === 'default' && t.labels) {
+                const key = `${t.from}-${t.to}-${t.labels}`
+            return !bidirectionals.has(key)
+            }
+            return true
+        })
+
+        setEdges(
+            filteredTransitions.map((transition, index) => ({
                 id: index.toString(),
                 source: transition.from.toString(),
                 target: transition.to.toString(),
                 label: transition.labels ? transition.labels.join(', ') : transition.character,
                 markerEnd: { type: MarkerType.Arrow },
                 type: transition.type
-              
-            })
-        ))
+            }))
+        )
     }, [response])
-
     
     const onNodesChange = useCallback(
         (changes) => setNodes((nodesSnapshot) => applyNodeChanges(changes, nodesSnapshot)),
