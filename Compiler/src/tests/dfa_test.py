@@ -1,7 +1,7 @@
 import unittest
 from dfa import DFA
 from syntax_tree import SyntaxTree
-from utils import get_postfix, format_input_for_syntax_tree
+from utils import get_postfix, format_input_for_syntax_tree, format_dfa_for_ui
 
 class TestDFA(unittest.TestCase):
     
@@ -11,7 +11,8 @@ class TestDFA(unittest.TestCase):
         s.build_tree(get_postfix(infix))
         syntax_tree = s.get_tree()
         d = DFA(syntax_tree, sorted(n.number for n in s.root.firstpos))
-        dfa = d.build_dfa()
+        d.build_dfa()
+        dfa = format_dfa_for_ui(d.states, d.start_state, d.alphabet, d.accepting_states, d.tran)
 
         assert dfa['states'] == [1,2,3]
         assert dfa['alphabet'] == ['a']
@@ -25,7 +26,8 @@ class TestDFA(unittest.TestCase):
         s.build_tree(get_postfix(infix))
         syntax_tree = s.get_tree()
         d = DFA(syntax_tree, sorted(n.number for n in s.root.firstpos))
-        dfa = d.build_dfa()
+        d.build_dfa()
+        dfa = format_dfa_for_ui(d.states, d.start_state, d.alphabet, d.accepting_states, d.tran)
 
         assert dfa['states'] == [1]
         assert dfa['alphabet'] == ['a']
@@ -39,7 +41,8 @@ class TestDFA(unittest.TestCase):
         s.build_tree(get_postfix(infix))
         syntax_tree = s.get_tree()
         d = DFA(syntax_tree, sorted(n.number for n in s.root.firstpos))
-        dfa = d.build_dfa()
+        d.build_dfa()
+        dfa = format_dfa_for_ui(d.states, d.start_state, d.alphabet, d.accepting_states, d.tran)
 
         assert dfa['states'] == [1,2,3]
         assert dfa['alphabet'] == ['a']
@@ -53,7 +56,8 @@ class TestDFA(unittest.TestCase):
         s.build_tree(get_postfix(infix))
         syntax_tree = s.get_tree()
         d = DFA(syntax_tree, sorted(n.number for n in s.root.firstpos))
-        dfa = d.build_dfa()
+        d.build_dfa()
+        dfa = format_dfa_for_ui(d.states, d.start_state, d.alphabet, d.accepting_states, d.tran)
 
         assert dfa['states'] == [1]
         assert dfa['alphabet'] == []
@@ -68,7 +72,8 @@ class TestDFA(unittest.TestCase):
             s.build_tree(get_postfix(infix))
             syntax_tree = s.get_tree()
             d = DFA(syntax_tree, sorted(n.number for n in s.root.firstpos))
-            dfa = d.build_dfa()
+            d.build_dfa()
+            dfa = format_dfa_for_ui(d.states, d.start_state, d.alphabet, d.accepting_states, d.tran)
 
             assert dfa['states'] == [1,2,3,4]
             assert dfa['alphabet'] == ['a', 'b']
@@ -83,7 +88,8 @@ class TestDFA(unittest.TestCase):
             s.build_tree(get_postfix(infix))
             syntax_tree = s.get_tree()
             d = DFA(syntax_tree, sorted(n.number for n in s.root.firstpos))
-            dfa = d.build_dfa()
+            d.build_dfa()
+            dfa = format_dfa_for_ui(d.states, d.start_state, d.alphabet, d.accepting_states, d.tran)
 
             assert dfa['states'] == [1,2,3,4,5,6]
             assert dfa['alphabet'] == ['2','0','1']
@@ -103,7 +109,8 @@ class TestDFA(unittest.TestCase):
             s.build_tree(get_postfix(infix))
             syntax_tree = s.get_tree()
             d = DFA(syntax_tree, sorted(n.number for n in s.root.firstpos))
-            dfa = d.build_dfa()
+            d.build_dfa()
+            dfa = format_dfa_for_ui(d.states, d.start_state, d.alphabet, d.accepting_states, d.tran)
 
             assert dfa['states'] == [1,2,3,4,5,6,7,8]
             assert dfa['alphabet'] == ['c','a','b']
@@ -121,7 +128,8 @@ class TestDFA(unittest.TestCase):
             s.build_tree(get_postfix(infix))
             syntax_tree = s.get_tree()
             d = DFA(syntax_tree, sorted(n.number for n in s.root.firstpos))
-            dfa = d.build_dfa()
+            d.build_dfa()
+            dfa = format_dfa_for_ui(d.states, d.start_state, d.alphabet, d.accepting_states, d.tran)
 
             assert dfa['states'] == [1,2,3,4]
             assert dfa['alphabet'] == ['0','1']
@@ -142,7 +150,8 @@ class TestDFA(unittest.TestCase):
             s.build_tree(get_postfix(infix))
             syntax_tree = s.get_tree()
             d = DFA(syntax_tree, sorted(n.number for n in s.root.firstpos))
-            dfa = d.build_dfa()
+            d.build_dfa()
+            dfa = format_dfa_for_ui(d.states, d.start_state, d.alphabet, d.accepting_states, d.tran)
 
             assert dfa['states'] == [1,2,3,4,5,6,7,8,9, 10, 11, 12, 13, 14]
             assert dfa['alphabet'] == ['f','a', 'h', 'd', 'g']

@@ -21,7 +21,7 @@ Automaattisia testejä on 31 kappaletta. Testien haarautumakattavuus on 99%.
 
 ![Testikattavuusraportti](https://github.com/Kaabero/regular_expression_to_DFA/blob/main/dokumentaatio/kuvat/Testikattavuusraportti.png)
 
-Testikattavuusraportti ajettu 3.12.2025
+Testikattavuusraportti ajettu 9.12.2025
 
 ### Testitapaukset (yksikkötestaus)
 

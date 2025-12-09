@@ -124,3 +124,99 @@ def format_input_for_syntax_tree(user_input: str):
     infix += '#'
 
     return infix
+
+def format_dfa_for_ui(states: list, start: list, alphabet: list, accepting: list, tran: dict):
+    '''
+    Funktio, joka palauttaa DFA:n käyttöliittymän tarvitsemassa muodossa ilman solmujen numeroita
+
+    Args:
+        states (list): DFA:n tilat muodossa, joka sisältää solmujen numerot
+        start (list): DFA:n aloitustila muodossa, joka sisältää solmujen numerot
+        alphabet (list): DFA:n aakkosto
+        accepting (list): DFA:n hyväksyvät tilat muodossa, joka sisältää solmujen numerot
+        tran (list): DFA:nsiirtymät muodossa, joka sisältää solmujen numerot
+
+
+    Returns:
+        dict: DFA käyttöliittymän tarvitsemassa muodossa tilat nimettyinä ilman solmujen numeroita
+    '''
+
+    state_numbers = {tuple(s): i + 1 for i, s in enumerate(states)}
+    states_for_ui = [state_numbers[tuple(s)] for s in states]
+    start_state = state_numbers[tuple(start)]
+    accepting_states = [state_numbers[tuple(s)] for s in accepting]
+
+    result = {
+        "states": states_for_ui,
+        "alphabet": alphabet,
+        "q_0": start_state,
+        "accepting_states": accepting_states,
+        "transitions": get_transitions(state_numbers, tran)
+    }
+    return result
+
+
+
+def get_transitions(states: dict, tran: dict):
+    '''
+    Funktio, joka palauttaa DFA:n siirtymät käyttöliittymän tarvitsemassa muodossa.
+    
+    Args:
+        state_numbers (dict): DFA:n tilojen numerot ja niitä vastaavat solmujen numerot
+        tran (dict): DFA:nsiirtymät muodossa, joka sisältää solmujen numerot
+
+    Returns:
+        list: DFA:n siirtymät käyttöliittymän tarvitsemassa muodossa 
+        tilat nimettyinä ilman solmujen numeroita
+        
+    '''
+    trans = []
+    nodes = set()
+    selfconnecting = {}
+    for (from_pos, character), to_pos in tran.items():
+        nodes.add((states[tuple(from_pos)], states[tuple(to_pos)]))
+
+        if states[tuple(from_pos)] == states[tuple(to_pos)]:
+            if (states[tuple(from_pos)], states[tuple(to_pos)]) not in selfconnecting:
+                selfconnecting[(states[tuple(from_pos)], states[tuple(to_pos)])]=[]
+            selfconnecting[(states[tuple(from_pos)], states[tuple(to_pos)])].append(character)
+            trans.append({
+                "from": states[tuple(from_pos)],
+                "character": character,
+                "to": states[tuple(to_pos)],
+                "type": 'selfconnecting',
+                "labels": []
+            })
+        elif  (states[tuple(to_pos)], states[tuple(from_pos)]) in nodes:
+            trans.append({
+                "from": states[tuple(from_pos)],
+                "character": character,
+                "to": states[tuple(to_pos)],
+                "type": 'bidirectional'
+            })
+        else:
+            trans.append({
+                "from": states[tuple(from_pos)],
+                "character": character,
+                "to": states[tuple(to_pos)],
+                "type": 'default'
+            })
+    for i in range(len(trans)):
+        if trans[i]['type'] == 'selfconnecting':
+            trans[i]['labels'] = selfconnecting[(trans[i]['from'], trans[i]['to'])]
+        else:
+            for j in range(i+1, len(trans)):
+                if trans[i]['from'] ==trans[j]['from'] and trans[i]['to'] ==trans[j]['to']:
+                    if 'labels' not in trans[i]:
+                        trans[i]['labels']=[]
+                    if 'labels' not in trans[j]:
+                        trans[j]['labels']=[]
+                    if trans[i]['character'] not in trans[i]['labels']:
+                        trans[i]['labels'].append(trans[i]['character'])
+                    if trans[j]['character'] not in trans[i]['labels']:
+                        trans[i]['labels'].append(trans[j]['character'])
+                    if trans[i]['character'] not in trans[j]['labels']:
+                        trans[j]['labels'].append(trans[i]['character'])
+                    if trans[j]['character'] not in trans[j]['labels']:
+                        trans[j]['labels'].append(trans[j]['character'])
+    return trans
