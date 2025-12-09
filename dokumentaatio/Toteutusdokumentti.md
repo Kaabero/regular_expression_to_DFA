@@ -6,9 +6,9 @@ Sovellus on kääntäjä, joka annetun säännölisen lausekkeen perusteella tuo
 
 Varsinainen ohjelmalogiikka sijaitsee Compiler-hakemistossa. Tiedostossa main.py käytetään hyväksi FastAPIa vastaanottamaan käyttäjän syöttämä säännöllinen lauseke käyttöliittymän puolelta ja lopuksi lähettämään muodostettu DFA käyttöliittymän puolelle. Syötteen validointiin ja sen muodon muuntamiseen liittyvät funktiot sijatsevat tiedostossa utils.py, joka käyttää hyväkseen pinotietorakennetta kuvaavaa luokkaa Stack. Syntaksipuun rakentamista varten on ohjelmassa luokka SyntaxTree, joka hyödyntää puun muodostamisessa yksittäistä solmua kuvaavaa luokkaa Node. Lopullisen DFA:n muodostamista varten on ohjelmassa luokka DFA. Käyttöliittymään liittyvä koodi sijaitsee UI-hakemistossa.
 
-## Saavutetut aika- ja tilavaativuudet
+## Aikavaativuudet
 
-Lisätään myöhemmin
+Syötteen validointi, muokkaaminen ja muuttaminen postfix-muotoon perustuvat syötteen läpikäyntiin ja ovat aikavaativuudeltaan O(n), missä n on syötteen koko. Pino-operaatiot toimivat aikavaativuudella O(1). Syntaksipuun rakentaminen perustuu muokatun syötteen läpikäyntiin ja on aikavaativuudeltaan O(m), missä m on muokatun syötteen pituus ja m > n. Syntaksipuun solmujen firtspos, lastpos ja nullable sekä followpos arvojen asettamisessa käydään läpi kaikki syntakipuun solmut ja käytetään rekursiota, joten näiden aikavaativuus on molempien O(k^2), missä k on solmujen määrä ja k <= n, eli pahimmillaan aikavaativuus on O(n^2). Syntaksipuun palautus sanakirjamuodossa perustuu puun jokaisen solmun läpikäyntiin ja on aikavaativuudeltaan pahimmillaan O(n). DFA:n rakentamisessa käydään läpi kaikki DFA:n tilat ja tilojen rakentamisessa käytetään rekursiota ja tällöin toiminnon aikavaativuus on pahimmillaan O(2^n), sillä tilojen lukumäärä on pahimmillaan 2^n. Lisäksi ohjelmakoodi sisältää muodostetun DFA:n muokkausta käyttöliittymän tarvitsemaan muotoon, mikä on jätetty tässä laskennassa huomiotta.
 
 
 ## Työn mahdolliset puutteet ja parannusehdotukset
@@ -20,8 +20,8 @@ Ohjelma voisi tukea kattavammin erilaisia operaatioita tähden, konkatenaation j
 
 - Käytin ChatGPT:tä suomentamaan minulle joitain lähteissä olevia kohtia
 - Käytin ChatGPT:tä ehdottamaan, miten kommunikointi Pythonilla tehdyn backendin ja Reactilla+Javascriptillä tehdyn frontendin välillä kannattaa toteuttaa.
-- Käytin ChatGPT:tä apuna joissain CSS-ongelmissa
-- Käytin ChatGPT:tä apuna joissain ReactFlow-ongelmissa
+- Käytin ChatGPT:tä apuna joissain CSS-ongelmissa (info-ikoni)
+- Käytin ChatGPT:tä apuna joissain ReactFlow-ongelmissa (symbolin asettelu)
 
 ## Käyteyt lähteet 
 
