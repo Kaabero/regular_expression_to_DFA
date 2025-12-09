@@ -13,6 +13,8 @@ Projekti koskee Helsingin yliopiston Tietojenkäsittelytieteen kandiohjelman (TK
 
 [Toteutusdokumentti](./dokumentaatio/Toteutusdokumentti.md)
 
+[Käyttöohjeet](./dokumentaatio/Käyttöohjeet.md)
+
 ## Viikkoraportit
 
 [Viikkoraportti 1](./dokumentaatio/Viikkoraportti1.md)
@@ -26,6 +28,8 @@ Projekti koskee Helsingin yliopiston Tietojenkäsittelytieteen kandiohjelman (TK
 [Viikkoraportti 5](./dokumentaatio/Viikkoraportti5.md)
 
 [Viikkoraportti 6](./dokumentaatio/Viikkoraportti6.md)
+
+[Viikkoraportti 7](./dokumentaatio/Viikkoraportti7.md)
 
 ## Käynnistysohjeet
 
