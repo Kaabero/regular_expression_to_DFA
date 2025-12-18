@@ -69,7 +69,7 @@ export const DfaChart = ({responseRegex, response}) => {
     return (
         <>
             <h4>Säännöllisen lausekkeen "{responseRegex}" DFA:</h4>
-            <div style={{ width: '100vw', height: '100vh' }}>
+            <div style={{ width: '100vw', height: '100vh', position: 'absolute', left: 0 }}>
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
