@@ -22,12 +22,12 @@ function App() {
 
 
   return (
-    <>
+    <div className='fixed-content'>
       <Notification message={errorMessage} />
       {!response && (
-        <h2 style={{ position: 'fixed', top: '100px',left: 160}}>Säännöllisestä lausekkeesta DFA:ksi</h2>
+        <h2>Säännöllisestä lausekkeesta DFA:ksi</h2>
       )}   
-      <div style={{position: "absolute",top: "220px",left: -50, width: "100%", display: "flex"}}>
+      <div>
         <div style={{width: "900px", maxWidth: "95%", textAlign: "center"}}>
         {!response ? (
             <RegexForm setResponse={setResponse} setResponseRegex={setResponseRegex} setErrorMessage={setErrorMessage}/>
@@ -50,7 +50,7 @@ function App() {
         )}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

@@ -66,3 +66,15 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.fixed-content {
+  top: 60px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  place-items: center;
+}
