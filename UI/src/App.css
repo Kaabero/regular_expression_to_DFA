@@ -79,8 +79,6 @@ input {
 .notification {
   position: fixed;
   top: 10px;
-  left: 57%;
-  transform: translateX(-80%);
   padding: 1px 24px;
   border-radius: 8px;
   background-color: #f70606;
